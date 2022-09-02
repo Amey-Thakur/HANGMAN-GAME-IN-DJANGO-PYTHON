@@ -1,0 +1,319 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HANGMAN game</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Favicons -->
+    <link href="{% static 'img/favicon.png' %}" rel="icon">
+    <link href="{% static '' %}img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700"
+          rel="stylesheet">
+
+    <!-- Bootstrap CSS File -->
+    <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Libraries CSS Files -->
+    <link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
+
+    <!-- Main Stylesheet File -->
+    <link href="{% static '' %}css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+      Theme Name: Reveal
+      Theme URL: https://bootstrapmade.com/reveal-bootstrap-corporate-template/
+      Author: BootstrapMade.com
+      License: https://bootstrapmade.com/license/
+    ======================================================= -->
+</head>
+
+<body id="body">
+<header id="header">
+    <div class="container">
+
+        <div id="logo" class="pull-left">
+            <h1><a href="#body" class="scrollto">HangMan<span>game</span></a></h1>
+        </div>
+
+        <nav id="nav-menu-container">
+            <ul class="nav-menu">
+                <li class="menu-active"><a href="{% url 'starting' %}">Home</a></li>
+                <li><a href="#services">Play</a></li>
+                <li><a href="#invite">Invite your friend</a></li>
+            </ul>
+        </nav><!-- #nav-menu-container -->
+    </div>
+</header><!-- #header -->
+
+<!--==========================
+  Intro Section
+============================-->
+<section id="intro">
+
+    <div class="intro-content">
+        <h2>Invite <span>your friends</span><br>to play!</h2>
+        <div>
+            <a href="#services" class="btn-get-started scrollto">Play Now</a>
+            <a href="#invite" class="btn-get-started scrollto">Invite your friend</a>
+        </div>
+    </div>
+
+
+</section><!-- #intro -->
+
+<main id="main">
+
+    <section id="services">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <h2>How I play?</h2>
+                    <p>If the letter is contained in the word/phrase, the group or individual takes another turn
+                        guessing a
+                        letter. ...
+                        If the letter is not contained in the word/phrase, click the Play Again button, a portion of the
+                        hangman is added.</p>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    <div class="box wow fadeInLeft">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12">
+                                <img id="imageMan" src="static/hangmanpict/{{ fault }}.jpg" alt="{{ fault }}"
+                                     height="200px"
+                                     width="150px">
+                            </div>
+                            <div class="col-lg-6 col-sm-12">
+                                <span class="input-group-sm bottom-right">
+                                    {% for w in word %}
+                                        {% if w == "" %}
+                                            <b id="wordLetter{{ forloop.counter }}"
+                                               style="margin-right: 5px">___</b>
+                                        {% else %}
+                                            <b id="wordLetter{{ forloop.counter }}"
+                                               style="margin-right: 5px">{{ w }}</b>
+                                        {% endif %}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-lg-10 col-sm-12">
+                            <span class="input-group-sm">
+                                <a id="a" onclick="wordUpd('a')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">A</a>
+                                <a id="b" onclick="wordUpd('b')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">B</a>
+                                <a id="c" onclick="wordUpd('c')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">C</a>
+                                <a id="d" onclick="wordUpd('d')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">D</a>
+                                <a id="e" onclick="wordUpd('e')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">E</a>
+                                <a id="f" onclick="wordUpd('f')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">F</a>
+                                <a id="g" onclick="wordUpd('g')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">G</a>
+                                <a id="h" onclick="wordUpd('h')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">H</a>
+                                <a id="i" onclick="wordUpd('i')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">I</a>
+                                <a id="j" onclick="wordUpd('j')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">J</a>
+                            </span>
+                                <span class="input-group-sm">
+                                <a id="k" onclick="wordUpd('k')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">K</a>
+                                <a id="l" onclick="wordUpd('l')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">L</a>
+                                <a id="m" onclick="wordUpd('m')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">M</a>
+                                <a id="n" onclick="wordUpd('n')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">N</a>
+                                <a id="o" onclick="wordUpd('o')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">O</a>
+                                <a id="p" onclick="wordUpd('p')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">P</a>
+                                <a id="q" onclick="wordUpd('q')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">Q</a>
+                                <a id="r" onclick="wordUpd('r')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">R</a>
+                                <a id="s" onclick="wordUpd('s')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">S</a>
+                                <a id="t" onclick="wordUpd('t')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">T</a>
+                            </span>
+                                 <span class="input-group-sm">
+                                <a id="u" onclick="wordUpd('u')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">U</a>
+                                <a id="v" onclick="wordUpd('v')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">V</a>
+                                <a id="w" onclick="wordUpd('w')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">W</a>
+                                <a id="x" onclick="wordUpd('x')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">X</a>
+                                <a id="y" onclick="wordUpd('y')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">Y</a>
+                                <a id="z" onclick="wordUpd('z')" class="btn btn-primary m-1"
+                                   style="height: 40px; width: 40px; color: white">Z</a>
+                            </span>
+                            </div>
+                            <a hidden id="playAgain" style="font-size: 25px; margin-top: 25px; margin-left: 55px" href="{% url 'starting' %}">
+                                <i class="fa fa-gamepad"></i> Play Again</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section><!-- #services -->
+    <section id="invite">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-sm-12">
+                    <h2>How can my friend play?</h2>
+                    <p>Just pick a random word, of our database, copy the url for share and voilá!!</p>
+                    <p>Dont forget ask to your friend a screenshot!!</p>
+                </div>
+                <div class="col-lg-8 col-sm-12">
+                    <div class="box wow fadeInLeft">
+                        <a id="generateNew" onclick="generateNewWord()" class="btn btn-primary"
+                                   style="color: white">Generate new word</a>
+                        <h2 id="wordRandom">{{ wordForFriend.word }}</h2> <br>
+                        <label for="urlnewGame">Url for share</label>
+                        <a target="_blank" id="urlnewGame" href="http://{{ domain }}/{{ wordForFriend.uui }}">http://{{ domain }}/{{ wordForFriend.uui }}</a>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section><!-- #services -->
+</main>
+<input type="hidden" id="fault" value="1">
+<input type="hidden" id="gameId" value="0">
+<!--==========================
+  Footer
+============================-->
+<footer id="footer">
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong>HangMan</strong>. All Rights Reserved
+        </div>
+        <div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Reveal
+            -->
+            Designed by <a target="_blank" href="https://bootstrapmade.com/">BootstrapMade</a> Customize by <a target="_blank" href="http://hectoralonsoremedios.pythonanywhere.com">Héctor Alonso Remedios</a>
+        </div>
+    </div>
+</footer><!-- #footer -->
+
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+<!-- JavaScript Libraries -->
+<script src="{% static 'lib/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'lib/jquery/jquery-migrate.min.js' %}"></script>
+<script src="{% static 'lib/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/superfish/hoverIntent.js' %}"></script>
+<script src="{% static 'lib/superfish/superfish.min.js' %}"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'lib/magnific-popup/magnific-popup.min.js' %}"></script>
+<script src="{% static 'lib/sticky/sticky.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
+<!-- Contact Form JavaScript File -->
+<script src="{% static 'contactform/contactform.js' %}"></script>
+
+<!-- Template Main Javascript File -->
+<script src="{% static 'js/main.js' %}"></script>
+
+<script>
+    function generateNewWord() {
+        $.ajax({
+            url: '{% url "generate-word" %}',
+            data: {},
+            type: 'get',
+            success: function (data) {
+                $("#wordRandom").html(data.word);
+                const url = "http://" + data.domain + "/" + data.uuid;
+                $("#urlnewGame").attr('href', url);
+                $("#urlnewGame").html(url);
+            }
+        });
+    }
+    function wordUpd(letter) {
+        id ={{ wordId }};
+        fault = $('#fault').val();
+        gameId = $('#gameId').val();
+        $.ajax({
+            url: '{% url "updated-word-game" %}',
+            data: {'wordId': id, 'faults': fault, 'letter': letter, 'gameId': gameId},
+            type: 'get',
+            success: function (data) {
+                if (data.lose) {
+                    $('#imageMan').attr('src', 'static/hangmanpict/7.jpg');
+                    $('#playAgain').removeAttr('hidden');
+                    alert('You lose, the word is ' + data.word)
+                } else {
+                    if (data.win) {
+                        $('#gameId').val(data.gameId);
+                        $('#' + letter).removeClass('btn-primary');
+                        $('#' + letter).addClass('btn-success disabled');
+                        for (let i = 0; i < data.wordArray.length; i++) {
+                            if (data.wordArray[i] !== "") {
+                                $("#wordLetter" + (i + 1).toString()).html(data.wordArray[i])
+                            }
+                        }
+                        $('#imageMan').attr('src', 'static/hangmanpict/8.jpg');
+                        $('#playAgain').removeAttr('hidden');
+                        alert("You win")
+                    } else {
+                        if (data.fault === 0) {
+                            $('#gameId').val(data.gameId);
+                            $('#' + letter).removeClass('btn-primary');
+                            $('#' + letter).addClass('btn-success disabled');
+                            for (let i = 0; i < data.wordArray.length; i++) {
+                                if (data.wordArray[i] !== "") {
+                                    $("#wordLetter" + (i + 1).toString()).html(data.wordArray[i])
+                                }
+                            }
+                        } else {
+                            $('#gameId').val(data.gameId);
+                            $('#imageMan').attr('src', 'static/hangmanpict/' + data.fault + '.jpg');
+                            $('#' + letter).removeClass('btn-primary');
+                            $('#' + letter).addClass('btn-danger disabled');
+
+                        }
+                    }
+                }
+            }
+        });
+
+    }
+</script>
+
+</body>
+</html>
