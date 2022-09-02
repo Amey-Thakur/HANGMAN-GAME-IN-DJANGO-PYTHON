@@ -5,16 +5,21 @@
 ## **Steps to run django web application**
 
 1. Create a virtual environement. 
+
 2. Clone the repository in the virtual environement.
+
 3. Activate the environment.
+
 4. Run this command to install packages.
 ``` bash
 pip install -r requirement.txt
 ```
+
 5. Run the following command to start the server
 ``` bash
 python manage.py runserver
 ```
+
 ---
 
 # Snapshots of output
@@ -41,12 +46,9 @@ python manage.py runserver
 ![Lose](https://user-images.githubusercontent.com/54937357/188228245-16ecd9f4-c1f9-4e94-aa3d-5b6dd5733cc3.png)
 
 
-
-
 ---
 
 <p align="center"> <b> 👉🏻 Created to Learn Django 👈🏻 <b> </p>
  
 <p align="center"><a href='https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON', style='color: greenyellow;'> ✌🏻 Back To Repository ✌🏻</p>
-
 
