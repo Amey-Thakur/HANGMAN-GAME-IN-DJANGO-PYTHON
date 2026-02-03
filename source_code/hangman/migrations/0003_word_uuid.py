@@ -7,13 +7,13 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hangMansApp', '0002_game_letterknows'),
+        ('hangman', '0002_game_letterknows'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='word',
-            name='uui',
+            name='uuid',
             field=models.UUIDField(default=uuid.uuid4, editable=False),
         ),
     ]

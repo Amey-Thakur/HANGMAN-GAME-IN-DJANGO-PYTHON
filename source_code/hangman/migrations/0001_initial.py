@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 ('win', models.BooleanField(default=False, verbose_name='Win')),
                 ('session', models.TextField(verbose_name='Session')),
                 ('fault', models.IntegerField(default=0, verbose_name='Faults')),
-                ('word', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='hangMansApp.Word', verbose_name='Word')),
+                ('word', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='hangman.Word', verbose_name='Word')),
             ],
         ),
     ]
