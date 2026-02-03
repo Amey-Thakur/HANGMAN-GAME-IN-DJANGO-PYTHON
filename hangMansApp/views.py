@@ -48,9 +48,9 @@ def updateWord(request):
             if game.fault >= 6:
                 return JsonResponse({'lose': True})
         if letter in word.word:
-            game.letterKnows = game.letterKnows + letter
+            game.letters_known = game.letters_known + letter
             for v in word.word:
-                if v in game.letterKnows:
+                if v in game.letters_known:
                     wordArray.append(v)
                 else:
                     wordArray.append("")
@@ -67,13 +67,13 @@ def updateWord(request):
                 return JsonResponse({'lose': True, 'word': word.word.upper()})
             return JsonResponse({'gameId': game.id, 'fault': game.fault + 1, 'win': False, 'letter': letter})
 
-def playShare(request, uui):
-    print(uui)
+def playShare(request, uuid):
+    print(uuid)
     forRandomId = []
     for r in models.Word.objects.all():
         forRandomId.append(r.id)
     wordIdFriend = random.choice(forRandomId)
-    word = models.Word.objects.get(uui=uui)
+    word = models.Word.objects.get(uuid=uuid)
     wordArray = []
     for n in range(len(word.word)):
         wordArray.append("")
@@ -90,11 +90,11 @@ def generateWord(request):
     word = models.Word.objects.get(id=wordIdFriend)
     print(word)
     domain = get_current_site(request)
-    return JsonResponse({"word": word.word, "domain": str(domain), 'uuid': str(word.uui)})
+    return JsonResponse({"word": word.word, "domain": str(domain), 'uuid': str(word.uuid)})
 
 def chargeDB():
-    fich = open("static/Hangman_wordbank.txt")
-    line = fich.readlines()
+    file_handle = open("static/Hangman_wordbank.txt")
+    line = file_handle.readlines()
     array = line[0].split(', ')
     print(array)
     for a in array:
