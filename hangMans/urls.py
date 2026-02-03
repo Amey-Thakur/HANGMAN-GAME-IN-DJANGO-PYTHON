@@ -22,6 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.Start, name='starting'),
     path('update/word', views.updateWord, name='updated-word-game'),
-    path('<uuid:uui>', views.playShare, name='play-game-share'),
+    path('<uuid:uuid>', views.playShare, name='play-game-share'),
     path('generate/word', views.generateWord, name='generate-word'),
 ]

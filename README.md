@@ -4,15 +4,15 @@
 
 ## **Steps to run django web application**
 
-1. Create a virtual environement. 
+1. Create a virtual environment. 
 
-2. Clone the repository in the virtual environement.
+2. Clone the repository in the virtual environment.
 
 3. Activate the environment.
 
 4. Run this command to install packages.
 ``` bash
-pip install -r requirement.txt
+pip install -r requirements.txt
 ```
 
 5. Run the following command to start the server
