@@ -3,6 +3,8 @@
 >**Hangman Game Django Web App**
 
 ## **Steps to run django web application**
+6: 
+7: >**Note**: This project has been upgraded to **Django 6.0.2** and **Python 3.12+**.
 
 1. Create a virtual environment. 
 
@@ -15,7 +17,14 @@
 cd "Source Code"
 ```
 
-5. Run this command to install packages.
+5. Create a `.env` file and add your `SECRET_KEY`.
+``` env
+SECRET_KEY=your-secret-key-here
+DEBUG=True
+ALLOWED_HOSTS=*
+```
+
+6. Run this command to install packages.
 ``` bash
 pip install -r requirements.txt
 ```
