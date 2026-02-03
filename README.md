@@ -10,12 +10,17 @@
 
 3. Activate the environment.
 
-4. Run this command to install packages.
+4. Navigate to the Source Code directory.
+``` bash
+cd "Source Code"
+```
+
+5. Run this command to install packages.
 ``` bash
 pip install -r requirements.txt
 ```
 
-5. Run the following command to start the server
+6. Run the following command to start the server
 ``` bash
 python manage.py runserver
 ```
