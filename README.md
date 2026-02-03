@@ -10,9 +10,9 @@
 
 3. Activate the environment.
 
-4. Navigate to the source_code directory.
+4. Navigate to the Source Code directory.
 ``` bash
-cd source_code
+cd "Source Code"
 ```
 
 5. Run this command to install packages.
