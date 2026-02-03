@@ -16,12 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from hangMansApp import views
+from hangman import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.Start, name='starting'),
-    path('update/word', views.updateWord, name='updated-word-game'),
-    path('<uuid:uuid>', views.playShare, name='play-game-share'),
-    path('generate/word', views.generateWord, name='generate-word'),
+    path('', views.start, name='starting'),
+    path('update/word', views.update_word, name='updated-word-game'),
+    path('<uuid:uuid>', views.play_share, name='play-game-share'),
+    path('generate/word', views.generate_word, name='generate-word'),
 ]

@@ -92,7 +92,7 @@
                         <div class="box wow fadeInLeft">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12">
-                                    <img id="imageMan" src="static/hangmanpict/{{ fault }}.jpg" alt="{{ fault }}"
+                                    <img id="imageMan" src="static/hangman_pictures/{{ fault }}.jpg" alt="{{ fault }}"
                                         height="200px" width="150px">
                                 </div>
                                 <div class="col-lg-6 col-sm-12">
@@ -277,45 +277,40 @@
                 data: { 'wordId': currentWordId, 'faults': currentFault, 'letter': letter, 'gameId': currentGameId },
                 type: 'get',
                 success: function (data) {
-                    if (data.lose) {
-                        $('#imageMan').attr('src', 'static/hangmanpict/7.jpg');
+                    if (data.is_lose) {
+                        $('#imageMan').attr('src', 'static/hangman_pictures/7.jpg');
                         $('#playAgain').removeAttr('hidden');
-                        alert('You lose, the word is ' + data.word)
+                        alert('You lose, the word is ' + data.correct_word);
+                    } else if (data.is_win) {
+                        $('#gameId').val(data.game_id);
+                        $('#' + letter).removeClass('btn-primary');
+                        $('#' + letter).addClass('btn-success disabled');
+                        for (let i = 0; i < data.word_array.length; i++) {
+                            if (data.word_array[i] !== "") {
+                                $("#wordLetter" + (i + 1).toString()).html(data.word_array[i]);
+                            }
+                        }
+                        $('#imageMan').attr('src', 'static/hangman_pictures/8.jpg');
+                        $('#playAgain').removeAttr('hidden');
+                        alert("You win");
                     } else {
-                        if (data.win) {
-                            $('#gameId').val(data.gameId);
+                        $('#gameId').val(data.game_id);
+                        if (data.fault_count === 0) {
                             $('#' + letter).removeClass('btn-primary');
                             $('#' + letter).addClass('btn-success disabled');
-                            for (let i = 0; i < data.wordArray.length; i++) {
-                                if (data.wordArray[i] !== "") {
-                                    $("#wordLetter" + (i + 1).toString()).html(data.wordArray[i])
+                            for (let i = 0; i < data.word_array.length; i++) {
+                                if (data.word_array[i] !== "") {
+                                    $("#wordLetter" + (i + 1).toString()).html(data.word_array[i]);
                                 }
                             }
-                            $('#imageMan').attr('src', 'static/hangmanpict/8.jpg');
-                            $('#playAgain').removeAttr('hidden');
-                            alert("You win")
                         } else {
-                            if (data.fault === 0) {
-                                $('#gameId').val(data.gameId);
-                                $('#' + letter).removeClass('btn-primary');
-                                $('#' + letter).addClass('btn-success disabled');
-                                for (let i = 0; i < data.wordArray.length; i++) {
-                                    if (data.wordArray[i] !== "") {
-                                        $("#wordLetter" + (i + 1).toString()).html(data.wordArray[i])
-                                    }
-                                }
-                            } else {
-                                $('#gameId').val(data.gameId);
-                                $('#imageMan').attr('src', 'static/hangmanpict/' + data.fault + '.jpg');
-                                $('#' + letter).removeClass('btn-primary');
-                                $('#' + letter).addClass('btn-danger disabled');
-
-                            }
+                            $('#imageMan').attr('src', 'static/hangman_pictures/' + data.fault_count + '.jpg');
+                            $('#' + letter).removeClass('btn-primary');
+                            $('#' + letter).addClass('btn-danger disabled');
                         }
                     }
                 }
             });
-
         }
     </script>
 
