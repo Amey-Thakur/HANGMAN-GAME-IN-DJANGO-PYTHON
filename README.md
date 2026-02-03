@@ -26,24 +26,24 @@ python manage.py runserver
 
 >**Terminal**
 
-![Output1](https://user-images.githubusercontent.com/54937357/188228249-a5ba3125-6729-4769-8c51-f42cb92ca58e.png)
+![Terminal](screenshots/terminal.png)
 
 
 >**Homepage**
 
-![Output2](https://user-images.githubusercontent.com/54937357/188228250-9abbea47-c7a3-4e16-9f59-911729d7561f.png)
+![Homepage 1](screenshots/homepage_1.png)
 
-![Output3](https://user-images.githubusercontent.com/54937357/188228254-3c20531f-2726-4db5-9fb3-ad474d0d0f63.png)
+![Homepage 2](screenshots/homepage_2.png)
 
 
 >**Winner**
 
-![Win](https://user-images.githubusercontent.com/54937357/188228255-4604ceca-fd63-493f-aff4-2b1cf5e738c9.png)
+![Winner](screenshots/winner.png)
 
 
 >**Loser**
 
-![Lose](https://user-images.githubusercontent.com/54937357/188228245-16ecd9f4-c1f9-4e94-aa3d-5b6dd5733cc3.png)
+![Loser](screenshots/loser.png)
 
 ---
 
