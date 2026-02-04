@@ -137,6 +137,13 @@ HANGMAN-GAME-IN-DJANGO-PYTHON/
 ## Results
 
 <div align="center">
+  <b>Terminal Interface: Backend Diagnostics</b>
+  <br>
+  <i>Live operational log showing request handling and lexical selection.</i>
+  <br><br>
+  <img src="screenshots/terminal.png" alt="Terminal" width="90%">
+  <br><br><br>
+
   <b>Main Interface: Modern Design</b>
   <br>
   <i>Initial system state with optimized aesthetics and synchronized brand identity.</i>
@@ -156,13 +163,6 @@ HANGMAN-GAME-IN-DJANGO-PYTHON/
   <i>System-wide win state triggered upon successful word deduction.</i>
   <br><br>
   <img src="screenshots/winner.png" alt="Winner" width="90%">
-  <br><br><br>
-
-  <b>Terminal Interface: Backend Diagnostics</b>
-  <br>
-  <i>Live operational log showing request handling and lexical selection.</i>
-  <br><br>
-  <img src="screenshots/terminal.png" alt="Terminal" width="90%">
 </div>
 
 ---
