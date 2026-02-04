@@ -51,4 +51,4 @@ graph TD
 
 ---
 
-*Technical Specification | Hangman Game | Version 8.0*
+*Technical Specification | Hangman Game | Version 1.0.0*
