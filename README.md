@@ -5,7 +5,7 @@
 
   [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
   ![Status](https://img.shields.io/badge/Status-Completed-success)
-  [![Technology](https://img.shields.io/badge/Technology-Django%20%7C%20Python-blue)](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
+  [![Technology](https://img.shields.io/badge/Technology-Django%20%7C%20Python-blueviolet)](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
   [![Developed by Amey Thakur and Mega Satish](https://img.shields.io/badge/Developed%20by-Amey%20Thakur%20%26%20Mega%20Satish-blue.svg)](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
 
   A high-fidelity, interactive Hangman word game engineered with Django and Python. This system utilizes a robust RESTful state synchronization model to deliver a seamless, stateful gameplay experience across multiple lexical domains.
