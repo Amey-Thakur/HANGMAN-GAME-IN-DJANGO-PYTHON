@@ -141,28 +141,28 @@ HANGMAN-GAME-IN-DJANGO-PYTHON/
   <b>Terminal Interface: Backend Diagnostics</b>
   <br>
   <i>Live operational log showing request handling and lexical selection.</i>
-  <br><br>
+  <br>
   <img src="screenshots/terminal.png" alt="Terminal" width="90%">
-  <br><br><br>
+  <br><br>
 
   <b>Main Interface: Modern Design</b>
   <br>
   <i>Initial system state with optimized aesthetics and synchronized brand identity.</i>
-  <br><br>
+  <br>
   <img src="screenshots/homepage_1.png" alt="Homepage" width="90%">
-  <br><br><br>
+  <br><br>
  
   <b>Active Engagement: Logic Orchestration</b>
   <br>
   <i>Real-time interaction with the lexical word-bank via AJAX state sync.</i>
-  <br><br>
+  <br>
   <img src="screenshots/homepage_2.png" alt="Gameplay" width="90%">
-  <br><br><br>
+  <br><br>
 
   <b>Victory State: Operational Success</b>
   <br>
   <i>System-wide win state triggered upon successful word deduction.</i>
-  <br><br>
+  <br>
   <img src="screenshots/winner.png" alt="Winner" width="90%">
 </div>
 
