@@ -8,99 +8,200 @@ from hangman import models
 
 
 def start(request):
-    for_random_id = []
-    for r in models.Word.objects.all():
-        for_random_id.append(r.id)
-    word_id = random.choice(for_random_id)
-    word_id_friend = random.choice(for_random_id)
-    word = models.Word.objects.get(id=word_id)
-    word_array = []
-    for n in range(len(word.word)):
-        word_array.append("")
+    if models.Word.objects.count() == 0:
+        charge_db()
+    
+    # Implementing 40% bias for author names
+    if random.random() < 0.4:
+        author_list = ['amey', 'mega', 'ameythakur', 'megasatish']
+        authors = models.Word.objects.filter(word__in=author_list)
+        if authors.exists():
+            word = authors.order_by('?').first()
+        else:
+            word = models.Word.objects.order_by('?').first()
+    else:
+        word = models.Word.objects.order_by('?').first()
+
+    word_for_friend = models.Word.objects.order_by('?').first()
+    
+    if not word:
+        return render(request, 'index.html', {'error': 'No words found in database.'})
+    
+    word_array = [""] * len(word.word)
     domain = get_current_site(request)
-    return render(request, 'index.html', {'wordId': word_id, "word": word_array, "fault": 1,
-                                          'wordForFriend': models.Word.objects.get(id=word_id_friend),
-                                          'domain': domain})
+    return render(request, 'index.html', {
+        'wordId': word.id, 
+        "word": word_array, 
+        "fault": 1,
+        'wordForFriend': word_for_friend,
+        'domain': domain,
+        'hint': word.hint
+    })
 
 def update_word(request):
-    word_array = []
-    if request.method == 'GET':
-        word_id = request.GET.get('wordId')
-        fault = request.GET.get('faults')
-        letter = request.GET.get('letter')
-        game_id = request.GET.get('gameId')
+    """Handle a letter guess from the player."""
+    if request.method != 'GET':
+        return JsonResponse({'error': 'Invalid method'}, status=400)
+    
+    # Get request parameters
+    word_id = request.GET.get('wordId')
+    letter = request.GET.get('letter', '').strip().lower()
+    
+    if not word_id or not letter:
+        return JsonResponse({'error': 'Missing parameters'}, status=400)
+    
+    # Get the word
+    try:
         word = models.Word.objects.get(id=word_id)
-        session = ''
-        try:
-            session = str(request.COOKIES['csrftoken'])
-        except:
-            pass
-        if session != '':
-            try:
-                session = str(request.META['CSRF_COOKIE'])
-            except:
-                pass
-        game = models.Game.objects.filter(session=session, id=int(game_id))
-        if game.count() == 0:
-            game = models.Game.objects.create(session=session, word_id=word_id)
-        else:
-            game = game.first()
-            if game.fault >= 6:
-                return JsonResponse({'is_lose': True})
-        if letter in word.word:
-            game.letters_known = game.letters_known + letter
-            for v in word.word:
-                if v in game.letters_known:
-                    word_array.append(v)
-                else:
-                    word_array.append("")
-            if list(word.word) == word_array:
-                game.win = True
-                game.save()
-                return JsonResponse({'is_win': True, 'word_array': word_array})
+    except models.Word.DoesNotExist:
+        return JsonResponse({'error': 'Word not found'}, status=404)
+    
+    # Get session identifier (use session key or fallback to CSRF token)
+    session_id = request.session.session_key
+    if not session_id:
+        request.session.create()
+        session_id = request.session.session_key
+    if not session_id:
+        session_id = request.COOKIES.get('csrftoken', 'anonymous')
+    
+    # Find or create game for this session + word
+    game, created = models.Game.objects.get_or_create(
+        session=session_id,
+        word_id=word_id,
+        defaults={'fault': 0, 'letters_known': '', 'win': False}
+    )
+    
+    # Check if already lost
+    if game.fault >= 6:
+        return JsonResponse({
+            'is_lose': True,
+            'correct_word': word.word.upper()
+        })
+    
+    # Check if already won
+    if game.win:
+        word_array = list(word.word)
+        return JsonResponse({
+            'is_win': True,
+            'word_array': word_array
+        })
+    
+    # Process the guess
+    target_word = word.word.lower()
+    
+    if letter in target_word:
+        # CORRECT GUESS
+        if letter not in game.letters_known.lower():
+            game.letters_known += letter
             game.save()
-            return JsonResponse({'game_id': game.id, 'fault_count': 0, 'word_array': word_array, 'is_win': False, 'guessed_letter': letter})
-        else:
-            game.fault = game.fault + 1
+        
+        # Build word array for display
+        word_array = []
+        for char in word.word:
+            if char.lower() in game.letters_known.lower():
+                word_array.append(char)
+            else:
+                word_array.append('')
+        
+        # Check for victory (no empty slots)
+        if '' not in word_array:
+            game.win = True
             game.save()
-            if game.fault >= 6:
-                return JsonResponse({'is_lose': True, 'correct_word': word.word.upper()})
-            return JsonResponse({'game_id': game.id, 'fault_count': game.fault + 1, 'is_win': False, 'guessed_letter': letter})
+            return JsonResponse({
+                'is_win': True,
+                'word_array': word_array,
+                'is_correct': True
+            })
+        
+        # Correct but not won yet
+        return JsonResponse({
+            'is_win': False,
+            'is_correct': True,
+            'word_array': word_array,
+            'fault_count': game.fault
+        })
+    else:
+        # WRONG GUESS
+        game.fault += 1
+        game.save()
+        
+        # Check for loss
+        if game.fault >= 6:
+            return JsonResponse({
+                'is_lose': True,
+                'correct_word': word.word.upper()
+            })
+        
+        # Wrong but not lost yet
+        return JsonResponse({
+            'is_win': False,
+            'is_correct': False,
+            'fault_count': game.fault
+        })
 
 def play_share(request, uuid):
-    print(uuid)
-    for_random_id = []
-    for r in models.Word.objects.all():
-        for_random_id.append(r.id)
-    word_id_friend = random.choice(for_random_id)
     word = models.Word.objects.get(uuid=uuid)
-    word_array = []
-    for n in range(len(word.word)):
-        word_array.append("")
+    word_for_friend = models.Word.objects.order_by('?').first()
+    
+    word_array = [""] * len(word.word)
     domain = get_current_site(request)
-    return render(request, 'index.html', {'wordId': word.id, "word": word_array, "fault": 1,
-                                          'wordForFriend': models.Word.objects.get(id=word_id_friend),
-                                          'domain': domain})
+    return render(request, 'index.html', {
+        'wordId': word.id, 
+        "word": word_array, 
+        "fault": 1,
+        'wordForFriend': word_for_friend,
+        'domain': domain,
+        'hint': word.hint
+    })
 
 def generate_word(request):
-    for_random_id = []
-    for r in models.Word.objects.all():
-        for_random_id.append(r.id)
-    word_id_friend = random.choice(for_random_id)
-    word = models.Word.objects.get(id=word_id_friend)
-    print(word)
+    # Implementing 40% bias for author names in secret generation
+    if random.random() < 0.4:
+        author_list = ['amey', 'mega', 'ameythakur', 'megasatish']
+        authors = models.Word.objects.filter(word__in=author_list)
+        if authors.exists():
+            word = authors.order_by('?').first()
+        else:
+            word = models.Word.objects.order_by('?').first()
+    else:
+        word = models.Word.objects.order_by('?').first()
+    
     domain = get_current_site(request)
-    return JsonResponse({"word": word.word, "domain": str(domain), 'uuid': str(word.uuid)})
+    return JsonResponse({
+        "word": word.word if word else "", 
+        "domain": str(domain), 
+        'uuid': str(word.uuid) if word else "",
+        'hint': word.hint if word else ""
+    })
+
+from django.conf import settings
 
 def charge_db():
-    file_handle = open("static/hangman_wordbank.txt")
-    line = file_handle.readlines()
-    array = line[0].split(', ')
-    print(array)
-    for a in array:
-        word = a.replace(" ", "").replace("\n", "")
-        exist = models.Word.objects.filter(word=word)
-        if exist.count() == 0:
-            models.Word.objects.create(word=word)
-    for w in models.Word.objects.all():
-        print(w.word)
+    wordbank_path = settings.BASE_DIR / "static" / "hangman_wordbank.txt"
+    try:
+        with open(wordbank_path, 'r', encoding='utf-8') as file:
+            lines = file.readlines()
+            
+            for line in lines:
+                line = line.strip()
+                if not line: continue
+                
+                # Each line is "word: hint"
+                if ':' in line:
+                    parts = line.split(':', 1)
+                    word_text = parts[0].strip().replace(" ", "").lower()
+                    hint_text = parts[1].strip()
+                else:
+                    word_text = line.strip().replace(" ", "").lower()
+                    hint_text = "No hint available."
+                
+                if not models.Word.objects.filter(word=word_text).exists():
+                    models.Word.objects.create(word=word_text, hint=hint_text)
+                    
+            print(f"Database charged with {models.Word.objects.count()} words.")
+            
+    except Exception as e:
+        print(f"Error charging database: {e}")
+
+def handler404(request, exception):
+    return render(request, '404.html', status=404)

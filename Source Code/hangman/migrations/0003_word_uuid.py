@@ -7,7 +7,7 @@ import uuid
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hangman', '0002_game_letterknows'),
+        ('hangman', '0002_game_letters_known'),
     ]
 
     operations = [

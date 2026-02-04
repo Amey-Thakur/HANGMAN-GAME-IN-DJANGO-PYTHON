@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>HANGMAN game</title>
+    <title>HANGMAN | AMEY & MEGA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -30,7 +30,7 @@
     <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
 
     <!-- Main Stylesheet File -->
-    <link href="{% static '' %}css/style.css" rel="stylesheet">
+    <link href="{% static '' %}css/style.css?v=8.0" rel="stylesheet">
 
     <!-- =======================================================
       Theme Name: Reveal
@@ -38,6 +38,164 @@
       Author: BootstrapMade.com
       License: https://bootstrapmade.com/license/
     ======================================================= -->
+    <style>
+        .footer-credits-container {
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .footer-author-link {
+            color: #0c2e8a !important;
+            font-weight: bold !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            transition: transform 0.2s ease, color 0.2s ease !important;
+        }
+
+        .footer-author-link:hover {
+            color: #50d8af !important;
+        }
+
+        .footer-repo-link {
+            color: #555 !important;
+            font-weight: bold !important;
+            text-decoration: none !important;
+            display: inline-block !important;
+            transition: transform 0.2s ease, color 0.2s ease !important;
+        }
+
+        .footer-repo-link:hover {
+            color: #50d8af !important;
+        }
+
+        /* Gameplay Buttons Theme */
+        .btn-game-theme {
+            background-color: #0c2e8a !important;
+            border: 2px solid #0c2e8a !important;
+            color: #fff !important;
+            transition: all 0.3s ease !important;
+            font-weight: bold !important;
+            border-radius: 4px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .btn-game-theme:hover {
+            background-color: transparent !important;
+            color: #0c2e8a !important;
+            box-shadow: 0 4px 8px rgba(12, 46, 138, 0.1) !important;
+        }
+
+        .btn-game-theme:active,
+        .btn-game-theme.active {
+            transform: scale(0.95);
+            box-shadow: none !important;
+        }
+
+        .alphabet-btn {
+            height: 40px !important;
+            width: 40px !important;
+            margin: 4px !important;
+        }
+
+        /* Anti-Select Security */
+        body {
+            -webkit-user-select: none !important;
+            -moz-user-select: none !important;
+            -ms-user-select: none !important;
+            user-select: none !important;
+        }
+
+        /* Easter Egg Overlay */
+        #easter-egg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(12, 46, 138, 0.95);
+            z-index: 9999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            font-family: 'Raleway', sans-serif;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .easter-egg-content h1 {
+            font-size: 50px;
+            color: #50d8af;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        /* Custom Result Modal */
+        #customResultModal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 999999;
+            /* Higher than EVERYTHING */
+            display: none;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Raleway', sans-serif;
+            color: #333;
+        }
+
+        .custom-modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes modalPop {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        #customResultTitle {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        #customResultWordBox {
+            background: #f1f3f5;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0 30px 0;
+        }
+    </style>
 </head>
 
 <body id="body">
@@ -89,90 +247,139 @@
                             hangman is added.</p>
                     </div>
                     <div class="col-lg-8 col-sm-12">
-                        <div class="box wow fadeInLeft">
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-12">
-                                    <img id="imageMan" src="static/hangman_pictures/{{ fault }}.jpg" alt="{{ fault }}"
-                                        height="200px" width="150px">
+                        <!-- Added id="gameArena" and tabindex="0" to make it focusable for keyboard events -->
+                        <div class="box wow fadeInLeft" id="gameArena" tabindex="0" onclick="this.focus()"
+                            style="padding: 30px; border-radius: 12px; min-height: 450px; outline: none; border: 2px solid transparent; transition: border-color 0.3s;">
+                            <!-- Visual cue for focus state in CSS (handled inline here for simplicity as requested) -->
+                            <style>
+                                #gameArena:focus {
+                                    border-color: #50d8af !important;
+                                    box-shadow: 0 0 15px rgba(80, 216, 175, 0.4);
+                                }
+                            </style>
+                            <div class="row align-items-center" style="margin-bottom: 40px;">
+                                <!-- Hangman Image Section -->
+                                <div class="col-lg-5 col-md-6 col-sm-12 text-center">
+                                    <div
+                                        style="background: #f8f9fa; padding: 20px; border-radius: 10px; display: inline-block;">
+                                        <img id="imageMan" src="static/hangman_pictures/{{ fault }}.jpg"
+                                            alt="{{ fault }}"
+                                            style="height: 220px; width: auto; max-width: 100%; mix-blend-mode: multiply;">
+                                    </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-12">
-                                    <span class="input-group-sm bottom-right">
-                                        {% for w in word %}
-                                        {% if w == "" %}
-                                        <b id="wordLetter{{ forloop.counter }}" style="margin-right: 5px">___</b>
-                                        {% else %}
-                                        <b id="wordLetter{{ forloop.counter }}" style="margin-right: 5px">{{ w }}</b>
-                                        {% endif %}
-                                        {% endfor %}
-                                    </span>
+
+                                <!-- Word Blanks Section -->
+                                <div
+                                    class="col-lg-7 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center">
+                                    <p
+                                        style="margin-bottom: 20px; margin-left: 0; color: #888; font-size: 16px; font-weight: 600; font-style: italic; text-align: center;">
+                                        Guess the word to save the man!</p>
+                                    <div style="padding: 10px; text-align: center; width: 100%;">
+                                        <span id="wordBlanksContainer"
+                                            style="font-size: 32px; font-weight: bold; color: #333; border-bottom: 2px solid #50d8af; padding-bottom: 10px; display: inline-block; white-space: nowrap;">
+                                            {% for w in word %}
+                                            {% if w == "" %}
+                                            <span id="wordLetter{{ forloop.counter }}"
+                                                style="margin: 0 5px; color: #ccc;">_</span>
+                                            {% else %}
+                                            <span id="wordLetter{{ forloop.counter }}"
+                                                style="margin: 0 5px; color: #0c2e8a;">{{ w }}</span>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                        <!-- Hint Section -->
+                                        <div style="margin-top: 15px; text-align: center;">
+                                            <button onclick="toggleHint()" class="btn btn-sm"
+                                                style="background-color: #50d8af; color: white; border: none; font-size: 13px; border-radius: 20px; padding: 6px 18px; font-weight: 600; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                                <i class="fa fa-lightbulb-o"></i> Show Hint
+                                            </button>
+                                            <p id="hintText"
+                                                style="display: none; margin-top: 15px; margin-left: 0; color: #50d8af; font-size: 15px; font-weight: 600; font-style: italic; text-align: center;">
+                                                Hint: <span id="gameplayHintContent">{{ hint }}</span>
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-
+                            <!-- Keyboard Section -->
                             <div class="row">
-                                <div class="col-lg-10 col-sm-12">
-                                    <span class="input-group-sm">
-                                        <a id="a" onclick="wordUpd('a')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">A</a>
-                                        <a id="b" onclick="wordUpd('b')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">B</a>
-                                        <a id="c" onclick="wordUpd('c')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">C</a>
-                                        <a id="d" onclick="wordUpd('d')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">D</a>
-                                        <a id="e" onclick="wordUpd('e')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">E</a>
-                                        <a id="f" onclick="wordUpd('f')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">F</a>
-                                        <a id="g" onclick="wordUpd('g')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">G</a>
-                                        <a id="h" onclick="wordUpd('h')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">H</a>
-                                        <a id="i" onclick="wordUpd('i')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">I</a>
-                                        <a id="j" onclick="wordUpd('j')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">J</a>
-                                    </span>
-                                    <span class="input-group-sm">
-                                        <a id="k" onclick="wordUpd('k')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">K</a>
-                                        <a id="l" onclick="wordUpd('l')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">L</a>
-                                        <a id="m" onclick="wordUpd('m')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">M</a>
-                                        <a id="n" onclick="wordUpd('n')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">N</a>
-                                        <a id="o" onclick="wordUpd('o')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">O</a>
-                                        <a id="p" onclick="wordUpd('p')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">P</a>
-                                        <a id="q" onclick="wordUpd('q')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">Q</a>
-                                        <a id="r" onclick="wordUpd('r')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">R</a>
-                                        <a id="s" onclick="wordUpd('s')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">S</a>
-                                        <a id="t" onclick="wordUpd('t')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">T</a>
-                                    </span>
-                                    <span class="input-group-sm">
-                                        <a id="u" onclick="wordUpd('u')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">U</a>
-                                        <a id="v" onclick="wordUpd('v')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">V</a>
-                                        <a id="w" onclick="wordUpd('w')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">W</a>
-                                        <a id="x" onclick="wordUpd('x')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">X</a>
-                                        <a id="y" onclick="wordUpd('y')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">Y</a>
-                                        <a id="z" onclick="wordUpd('z')" class="btn btn-primary m-1"
-                                            style="height: 40px; width: 40px; color: white">Z</a>
-                                    </span>
+                                <div class="col-12 text-center">
+                                    <div
+                                        style="background: #f1f3f5; padding: 20px; border-radius: 15px; display: inline-block;">
+
+                                        <!-- Row 1 -->
+                                        <div style="margin-bottom: 8px;">
+                                            <a id="a" onclick="wordUpd('a')"
+                                                class="btn btn-game-theme alphabet-btn">A</a>
+                                            <a id="b" onclick="wordUpd('b')"
+                                                class="btn btn-game-theme alphabet-btn">B</a>
+                                            <a id="c" onclick="wordUpd('c')"
+                                                class="btn btn-game-theme alphabet-btn">C</a>
+                                            <a id="d" onclick="wordUpd('d')"
+                                                class="btn btn-game-theme alphabet-btn">D</a>
+                                            <a id="e" onclick="wordUpd('e')"
+                                                class="btn btn-game-theme alphabet-btn">E</a>
+                                            <a id="f" onclick="wordUpd('f')"
+                                                class="btn btn-game-theme alphabet-btn">F</a>
+                                            <a id="g" onclick="wordUpd('g')"
+                                                class="btn btn-game-theme alphabet-btn">G</a>
+                                            <a id="h" onclick="wordUpd('h')"
+                                                class="btn btn-game-theme alphabet-btn">H</a>
+                                            <a id="i" onclick="wordUpd('i')"
+                                                class="btn btn-game-theme alphabet-btn">I</a>
+                                            <a id="j" onclick="wordUpd('j')"
+                                                class="btn btn-game-theme alphabet-btn">J</a>
+                                        </div>
+
+                                        <!-- Row 2 -->
+                                        <div style="margin-bottom: 8px;">
+                                            <a id="k" onclick="wordUpd('k')"
+                                                class="btn btn-game-theme alphabet-btn">K</a>
+                                            <a id="l" onclick="wordUpd('l')"
+                                                class="btn btn-game-theme alphabet-btn">L</a>
+                                            <a id="m" onclick="wordUpd('m')"
+                                                class="btn btn-game-theme alphabet-btn">M</a>
+                                            <a id="n" onclick="wordUpd('n')"
+                                                class="btn btn-game-theme alphabet-btn">N</a>
+                                            <a id="o" onclick="wordUpd('o')"
+                                                class="btn btn-game-theme alphabet-btn">O</a>
+                                            <a id="p" onclick="wordUpd('p')"
+                                                class="btn btn-game-theme alphabet-btn">P</a>
+                                            <a id="q" onclick="wordUpd('q')"
+                                                class="btn btn-game-theme alphabet-btn">Q</a>
+                                            <a id="r" onclick="wordUpd('r')"
+                                                class="btn btn-game-theme alphabet-btn">R</a>
+                                            <a id="s" onclick="wordUpd('s')"
+                                                class="btn btn-game-theme alphabet-btn">S</a>
+                                            <a id="t" onclick="wordUpd('t')"
+                                                class="btn btn-game-theme alphabet-btn">T</a>
+                                        </div>
+
+                                        <!-- Row 3 -->
+                                        <div>
+                                            <a id="u" onclick="wordUpd('u')"
+                                                class="btn btn-game-theme alphabet-btn">U</a>
+                                            <a id="v" onclick="wordUpd('v')"
+                                                class="btn btn-game-theme alphabet-btn">V</a>
+                                            <a id="w" onclick="wordUpd('w')"
+                                                class="btn btn-game-theme alphabet-btn">W</a>
+                                            <a id="x" onclick="wordUpd('x')"
+                                                class="btn btn-game-theme alphabet-btn">X</a>
+                                            <a id="y" onclick="wordUpd('y')"
+                                                class="btn btn-game-theme alphabet-btn">Y</a>
+                                            <a id="z" onclick="wordUpd('z')"
+                                                class="btn btn-game-theme alphabet-btn">Z</a>
+                                        </div>
+                                    </div>
                                 </div>
-                                <a hidden id="playAgain" style="font-size: 25px; margin-top: 25px; margin-left: 55px"
-                                    href="{% url 'starting' %}">
-                                    <i class="fa fa-gamepad"></i> Play Again</a>
+
+                                <div class="col-12 text-center" style="margin-top: 20px;">
+                                    <a hidden id="playAgain" class="btn btn-success animated pulse infinite"
+                                        style="padding: 10px 30px; font-weight: bold; border-radius: 50px;"
+                                        href="{% url 'starting' %}">
+                                        <i class="fa fa-gamepad"></i> Play Again</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,13 +400,46 @@
                     </div>
                     <div class="col-lg-8 col-sm-12">
                         <div class="box wow fadeInLeft">
-                            <a id="generateNew" onclick="generateNewWord()" class="btn btn-primary"
-                                style="color: white">Generate new word</a>
-                            <h2 id="wordRandom">{{ wordForFriend.word }}</h2> <br>
-                            <label for="urlnewGame">Url for share</label>
-                            <a target="_blank" id="urlnewGame"
-                                href="http://{{ domain }}/{{ wordForFriend.uuid }}">http://{{ domain }}/{{
-                                wordForFriend.uuid }}</a>
+
+                            <!-- Header / Button -->
+                            <div style="margin-bottom: 30px;">
+                                <a id="generateNew" onclick="generateNewWord()" class="btn btn-game-theme"
+                                    style="padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer;">
+                                    <i class="fa fa-refresh" style="margin-right: 8px;"></i> Generate New Word
+                                </a>
+                            </div>
+
+                            <!-- Word Display -->
+                            <div
+                                style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; display: inline-block; min-width: 250px;">
+                                <h2 id="wordRandom"
+                                    style="font-size: 48px; color: #0c2e8a; font-weight: 800; margin: 0; letter-spacing: 1px;">
+                                    {{ wordForFriend.word }}</h2>
+                                <small
+                                    style="color: #6c757d; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 11px;">Secret
+                                    Word</small>
+                            </div>
+
+                            <!-- Share Link -->
+                            <div style="max-width: 500px; margin: 0 auto; text-align: left;">
+                                <label for="urlnewGame"
+                                    style="display: block; font-weight: 700; color: #444; margin-bottom: 8px;">Share
+                                    this link with your friend:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="urlnewGame"
+                                        value="http://{{ domain }}/{{ wordForFriend.uuid }}" readonly
+                                        style="height: 45px; background: #f1f3f5; border: 1px solid #ced4da; font-size: 14px; color: #555;">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="button" onclick="copyLink()"
+                                            style="height: 45px; border-color: #ced4da; background: #fff; color: #0c2e8a; font-weight: bold;">
+                                            <i class="fa fa-copy"></i> Copy
+                                        </button>
+                                    </div>
+                                </div>
+                                <small id="copySuccess"
+                                    style="color: #28a745; display: none; margin-top: 5px; font-weight: bold;"><i
+                                        class="fa fa-check"></i> Copied to clipboard!</small>
+                            </div>
 
                         </div>
                     </div>
@@ -211,28 +451,38 @@
 
         </section><!-- #services -->
     </main>
-    <input type="hidden" id="fault" value="1">
-    <input type="hidden" id="gameId" value="0">
+
     <!--==========================
   Footer
 ============================-->
     <footer id="footer">
         <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong>HangMan</strong>. All Rights Reserved
-            </div>
-            <div class="credits">
-                <!--
-              All the links in the footer should remain intact.
-              You can delete the links only if you purchased the pro version.
-              Licensing information: https://bootstrapmade.com/license/
-              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Reveal
-            -->
-                Designed by <a target="_blank" href="https://bootstrapmade.com/">BootstrapMade</a> Customize by <a
-                    target="_blank" href="http://hectoralonsoremedios.pythonanywhere.com">Héctor Alonso Remedios</a>
+            <div class="footer-credits-container">
+                Created by <a target="_blank" href="https://github.com/Amey-Thakur" class="footer-author-link">Amey
+                    Thakur</a> & <a target="_blank" href="https://github.com/msatmod" class="footer-author-link">Mega
+                    Satish</a>
+                <br>
+                Released: September 2, 2022 • <a target="_blank"
+                    href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON" class="footer-repo-link">GitHub
+                    Repo</a>
             </div>
         </div>
     </footer><!-- #footer -->
+
+    <!-- Easter Egg Overlay -->
+    <div id="easter-egg-overlay">
+        <div class="easter-egg-content">
+            <h1>You found the Secret! 🕵🏻‍♂️</h1>
+            <p style="font-size: 20px; margin-top: 20px;">While you were busy guessing letters, we were busy rebuilding
+                the gallows.</p>
+            <p style="font-size: 18px; color: #a3ebd5; margin: 15px 0;">This classic was painstakingly restored, letter
+                by letter, to ensure the man lives to play another day.</p>
+            <p style="font-size: 22px; font-weight: bold; color: #50d8af;">- Amey Thakur & Mega Satish</p>
+            <button onclick="document.getElementById('easter-egg-overlay').style.display='none'"
+                style="margin-top: 30px; background: #50d8af; border: none; padding: 10px 25px; color: #0c2e8a; font-weight: bold; cursor: pointer; border-radius: 5px;">Close
+                Secret</button>
+        </div>
+    </div>
 
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
@@ -247,7 +497,7 @@
     <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
     <script src="{% static 'lib/magnific-popup/magnific-popup.min.js' %}"></script>
     <script src="{% static 'lib/sticky/sticky.js' %}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
+
     <!-- Contact Form JavaScript File -->
     <script src="{% static 'contactform/contactform.js' %}"></script>
 
@@ -261,59 +511,202 @@
                 data: {},
                 type: 'get',
                 success: function (data) {
-                    $("#wordRandom").html(data.word);
+                    $("#wordRandom").fadeOut(200, function () {
+                        $(this).html(data.word).fadeIn(200);
+                    });
                     const url = "http://" + data.domain + "/" + data.uuid;
-                    $("#urlnewGame").attr('href', url);
-                    $("#urlnewGame").html(url);
+                    // Update input value instead of anchor href
+                    $("#urlnewGame").val(url);
+                    // Reset copy message
+                    $("#copySuccess").hide();
+
+                    // Reset hint (only if it exists and we're in the right mode, but here we just prevent clash)
+                    // $("#gameplayHintContent").text(data.hint); // Don't update gameplay hint when generating for friend
+                    $("#hintText").hide();
                 }
             });
         }
+
+        function copyLink() {
+            var copyText = document.getElementById("urlnewGame");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+
+            // Show success message
+            $("#copySuccess").fadeIn().delay(2000).fadeOut();
+        }
         function wordUpd(letter) {
             const currentWordId = parseInt("{{ wordId }}");
-            const currentFault = $('#fault').val();
-            const currentGameId = $('#gameId').val();
+
             $.ajax({
                 url: '{% url "updated-word-game" %}',
-                data: { 'wordId': currentWordId, 'faults': currentFault, 'letter': letter, 'gameId': currentGameId },
+                data: { 'wordId': currentWordId, 'letter': letter },
                 type: 'get',
                 success: function (data) {
+                    console.log("Response:", data);
+
+                    // Handle LOSS
                     if (data.is_lose) {
                         $('#imageMan').attr('src', 'static/hangman_pictures/7.jpg');
-                        $('#playAgain').removeAttr('hidden');
-                        alert('You lose, the word is ' + data.correct_word);
-                    } else if (data.is_win) {
-                        $('#gameId').val(data.game_id);
-                        $('#' + letter).removeClass('btn-primary');
-                        $('#' + letter).addClass('btn-success disabled');
-                        for (let i = 0; i < data.word_array.length; i++) {
-                            if (data.word_array[i] !== "") {
-                                $("#wordLetter" + (i + 1).toString()).html(data.word_array[i]);
-                            }
-                        }
-                        $('#imageMan').attr('src', 'static/hangman_pictures/8.jpg');
-                        $('#playAgain').removeAttr('hidden');
-                        alert("You win");
-                    } else {
-                        $('#gameId').val(data.game_id);
-                        if (data.fault_count === 0) {
-                            $('#' + letter).removeClass('btn-primary');
-                            $('#' + letter).addClass('btn-success disabled');
+                        $('#' + letter).removeClass('btn-game-theme').addClass('btn-danger disabled');
+
+                        $('#customResultTitle').text('GAME OVER').css('color', '#ff4d4d');
+                        $('#customResultMessage').text('Oh no! You couldn\'t save him this time.');
+                        $('#customResultWordBox').show();
+                        $('#customResultCorrectWord').text(data.correct_word);
+                        $('#customResultModal').css('display', 'flex').hide().fadeIn(400);
+                        return;
+                    }
+
+                    // Handle WIN
+                    if (data.is_win) {
+                        $('#' + letter).removeClass('btn-game-theme').addClass('btn-success disabled');
+
+                        // Fill in remaining letters
+                        if (data.word_array) {
                             for (let i = 0; i < data.word_array.length; i++) {
                                 if (data.word_array[i] !== "") {
-                                    $("#wordLetter" + (i + 1).toString()).html(data.word_array[i]);
+                                    $("#wordLetter" + (i + 1)).html(data.word_array[i]);
                                 }
                             }
-                        } else {
-                            $('#imageMan').attr('src', 'static/hangman_pictures/' + data.fault_count + '.jpg');
-                            $('#' + letter).removeClass('btn-primary');
-                            $('#' + letter).addClass('btn-danger disabled');
                         }
+
+                        $('#customResultTitle').text('VICTORY!').css('color', '#50d8af');
+                        $('#customResultMessage').text('Congratulations! You saved the man!');
+                        $('#customResultWordBox').hide();
+                        $('#customResultModal').css('display', 'flex').hide().fadeIn(400);
+                        return;
+                    }
+
+                    // Handle CORRECT GUESS (not won yet)
+                    if (data.is_correct) {
+                        $('#' + letter).removeClass('btn-game-theme').addClass('btn-success disabled');
+                        if (data.word_array) {
+                            for (let i = 0; i < data.word_array.length; i++) {
+                                if (data.word_array[i] !== "") {
+                                    $("#wordLetter" + (i + 1)).html(data.word_array[i]);
+                                }
+                            }
+                        }
+                        return;
+                    }
+
+                    // Handle WRONG GUESS (not lost yet)
+                    $('#imageMan').attr('src', 'static/hangman_pictures/' + (data.fault_count + 1) + '.jpg');
+                    $('#' + letter).removeClass('btn-game-theme').addClass('btn-danger disabled');
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Error:", error);
+                }
+            });
+        }
+
+        /* ----------------------------------------------------
+           SECURITY & EASTER EGGS
+           ---------------------------------------------------- */
+
+        // 1. Anti-Right Click
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // 2. Disable DevTools Shortcuts
+        document.onkeydown = function (e) {
+            if (e.keyCode == 123) { // F12
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+        };
+
+        // 3. DevTools Console Easter Egg
+        console.log("%c STOP! %c Unauthorized access is prohibited.",
+            "color: red; font-size: 40px; font-weight: bold; text-shadow: 2px 2px black;",
+            "color: #0c2e8a; font-size: 20px;");
+        console.log("%c HANGMAN PROJECT %c Created by Amey Thakur & Mega Satish",
+            "background: #0c2e8a; color: white; padding: 5px 10px; font-weight: bold;",
+            "color: #50d8af; font-weight: bold;");
+        console.log("If you see this, you found the first secret!");
+
+        // 4. Keyboard Sequence Easter Egg ("AMEYMEGA")
+        let secretCode = "";
+        const targetCode = "ameymega";
+        document.addEventListener('keydown', (e) => {
+            secretCode += e.key.toLowerCase();
+            if (secretCode.length > targetCode.length) {
+                secretCode = secretCode.substring(secretCode.length - targetCode.length);
+            }
+            if (secretCode === targetCode) {
+                document.getElementById('easter-egg-overlay').style.display = 'flex';
+                secretCode = ""; // reset
+            }
+        });
+
+        // 5. Game Keyboard Controls
+        const gameArena = document.getElementById('gameArena');
+        if (gameArena) {
+            gameArena.addEventListener('keydown', (e) => {
+                // Ignore if modifier keys are pressed (e.g., Ctrl+C, Alt+Tab)
+                if (e.ctrlKey || e.altKey || e.metaKey) return;
+
+                const key = e.key.toLowerCase();
+
+                // Check if key is a letter a-z
+                if (/^[a-z]$/.test(key)) {
+                    // Prevent default scrolling if needed, though usually fine for letters
+                    // e.preventDefault(); 
+
+                    const btn = document.getElementById(key);
+
+                    // If button exists and is not disabled (not already guessed)
+                    if (btn && !btn.classList.contains('disabled')) {
+                        // Add a visual "active" effect briefly
+                        btn.classList.add('active');
+                        setTimeout(() => btn.classList.remove('active'), 100);
+
+                        // Trigger the click logic
+                        btn.click();
                     }
                 }
             });
         }
+
+        // 6. Toggle Hint
+        function toggleHint() {
+            var hintText = document.getElementById("hintText");
+            if (hintText.style.display === "none") {
+                $(hintText).fadeIn();
+            } else {
+                $(hintText).fadeOut();
+            }
+        }
     </script>
 
+    <!-- Custom Result Modal (Permanent Fix) -->
+    <div id="customResultModal">
+        <div class="custom-modal-content">
+            <h1 id="customResultTitle"></h1>
+            <p id="customResultMessage" style="font-size: 18px; color: #666;"></p>
+
+            <div id="customResultWordBox">
+                <span
+                    style="display: block; font-size: 14px; color: #888; text-transform: uppercase; font-weight: bold; margin-bottom: 5px;">The
+                    word was</span>
+                <span id="customResultCorrectWord"
+                    style="font-size: 36px; font-weight: 800; color: #0c2e8a; letter-spacing: 2px; text-transform: uppercase;"></span>
+            </div>
+
+            <button type="button"
+                style="background: #50d8af; color: white; font-weight: bold; font-size: 20px; padding: 15px 40px; border-radius: 50px; border: none; cursor: pointer; box-shadow: 0 5px 15px rgba(80, 216, 175, 0.4); width: 100%; transition: transform 0.2s;"
+                onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'"
+                onclick="location.reload();">
+                <i class="fa fa-refresh"></i> Play Again
+            </button>
+        </div>
+    </div>
 </body>
 
 </html>

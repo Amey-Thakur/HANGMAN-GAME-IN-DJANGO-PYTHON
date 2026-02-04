@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.views.generic import TemplateView
 
 from hangman import views
 
@@ -24,4 +25,7 @@ urlpatterns = [
     path('update/word', views.update_word, name='updated-word-game'),
     path('<uuid:uuid>', views.play_share, name='play-game-share'),
     path('generate/word', views.generate_word, name='generate-word'),
+    path('404/', TemplateView.as_view(template_name='404.html')),
 ]
+
+handler404 = 'hangman.views.handler404' # Using a dedicated view is more robust for production
