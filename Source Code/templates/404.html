@@ -1,3 +1,18 @@
+<!--
+***************************************************************************************************
+* PROJ NAME: HANGMAN GAME IN DJANGO & PYTHON
+* AUTHOR   : Amey Thakur ([GitHub](https://github.com/Amey-Thakur))
+* CO-AUTHOR: Mega Satish ([GitHub](https://github.com/msatmod))
+* REPO     : [GitHub Repository](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
+* RELEASE  : September 2, 2022
+* LICENSE  : MIT License (https://opensource.org/licenses/MIT)
+* 
+* DESCRIPTION:
+* Exception Presentation Layer (HTTP 404). This document provides a graceful failover 
+* for navigation anomalies, ensuring a consistent aesthetic even during error states 
+* and providing a remediation path to return the user to the core experience.
+***************************************************************************************************
+-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -7,27 +22,26 @@
     <title>404 | HANGMAN | AMEY & MEGA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <!-- Google Fonts -->
+    <!-- Primary Typography Manifest -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,800|Montserrat:400,700" rel="stylesheet">
 
     <style>
+        /* Global Error State Environment */
         body,
         html {
             height: 100%;
             margin: 0;
             font-family: 'Raleway', sans-serif;
-            /* Use the static image as background, fallback to white */
             background: url("{% static 'img/404.png' %}") no-repeat center center fixed;
             background-size: cover;
             color: #333;
-            /* Keeping dark text as requested previously, user can adjust */
             overflow: hidden;
         }
 
+        /* Glassmorphism Presentation Layer: Ensuring Readability over Custom Background */
         .overlay-mask {
             height: 100%;
             width: 100%;
-            /* No overlay background as requested */
             background: transparent;
             display: flex;
             flex-direction: column;
@@ -44,15 +58,14 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            /* Add a semi-transparent white box behind text for readability if image is busy */
             background: rgba(255, 255, 255, 0.4);
             backdrop-filter: blur(5px);
-            /* Adds a nice glassmorphism effect for better readability */
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
+        /* Visual Emphasis: Exception Code Visualization */
         h1 {
             font-size: 120px;
             margin: 0;
@@ -70,6 +83,7 @@
             font-weight: 600;
         }
 
+        /* Remediation Vector: Primary Home-Return Path */
         .btn-home {
             background: #0c2e8a;
             color: #fff;
@@ -92,6 +106,7 @@
             border-color: #50d8af;
         }
 
+        /* Credits and Archival Branding */
         .footer {
             margin-top: 30px;
             font-size: 16px;
@@ -110,11 +125,7 @@
             color: #50d8af;
         }
 
-        /* Glitch Effect - simplified for visibility */
-        .glitch {
-            position: relative;
-        }
-
+        /* Entrance Choreography */
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -134,7 +145,6 @@
 </head>
 
 <body>
-    <!-- bg-container removed, using body background -->
     <div class="overlay-mask">
         <div class="container animated">
             <h1 class="glitch">404</h1>
@@ -142,11 +152,13 @@
             <p style="animation-delay: 0.4s; font-size: 18px; font-style: italic;">The words you seek are hidden
                 elsewhere.</p>
 
+            <!-- Action Link: Home Redirect -->
             <a href="/" class="btn-home" style="animation-delay: 0.6s;">Save the Man (Go Home)</a>
 
+            <!-- Authorship Persistence -->
             <div class="footer" style="animation-delay: 0.8s;">
                 Created with 💚 by <a href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON">Amey
-                    Thakur</a> & <a href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON">Mega Satish</a>
+                    Thakur</a> & <a href="https://github.com/msatmod">Mega Satish</a>
             </div>
         </div>
     </div>

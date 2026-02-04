@@ -1,31 +1,45 @@
-"""hangMans URL Configuration
+'''
+***************************************************************************************************
+* PROJ NAME: HANGMAN GAME IN DJANGO & PYTHON
+* AUTHOR   : Amey Thakur ([GitHub](https://github.com/Amey-Thakur))
+* CO-AUTHOR: Mega Satish ([GitHub](https://github.com/msatmod))
+* REPO     : [GitHub Repository](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
+* RELEASE  : September 2, 2022
+* LICENSE  : MIT License (https://opensource.org/licenses/MIT)
+* 
+* DESCRIPTION:
+* Centralized Routing Architecture. This module maps external HTTP request vectors 
+* to internal controller logic (views), orchestrating the application's navigational 
+* flow and resource accessibility.
+***************************************************************************************************
+'''
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/2.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 from django.views.generic import TemplateView
-
 from hangman import views
 
+# Routing Matrix: Mapping URIs to Business Logic
 urlpatterns = [
+    # Administrative Control Plane
     path('admin/', admin.site.urls),
+    
+    # Primary Entry Point: Game Initialization
     path('', views.start, name='starting'),
+    
+    # Asynchronous State Update Endpoint (AJAX Guesses)
     path('update/word', views.update_word, name='updated-word-game'),
+    
+    # Social Share Vector: Shareable UUID mapping
     path('<uuid:uuid>', views.play_share, name='play-game-share'),
+    
+    # Asynchronous Resource Generation (New Word for Share)
     path('generate/word', views.generate_word, name='generate-word'),
+    
+    # Error Handling Protocol: Explicit 404 access
     path('404/', TemplateView.as_view(template_name='404.html')),
 ]
 
-handler404 = 'hangman.views.handler404' # Using a dedicated view is more robust for production
+# Global Exception Mapping: Routing for undefined paths
+handler404 = 'hangman.views.handler404'
+
