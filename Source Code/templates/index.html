@@ -1,3 +1,18 @@
+<!--
+***************************************************************************************************
+* PROJ NAME: HANGMAN GAME IN DJANGO & PYTHON
+* AUTHOR   : Amey Thakur ([GitHub](https://github.com/Amey-Thakur))
+* CO-AUTHOR: Mega Satish ([GitHub](https://github.com/msatmod))
+* REPO     : [GitHub Repository](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)
+* RELEASE  : September 2, 2022
+* LICENSE  : MIT License (https://opensource.org/licenses/MIT)
+* 
+* DESCRIPTION:
+* Principal User Interface and Client-Side Orchestration Layer. This document defines the 
+* structural, stylistic, and interactive components of the Hangman experience, utilizing 
+* synchronous Django templating alongside asynchronous JavaScript extensions (AJAX).
+***************************************************************************************************
+-->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -9,35 +24,22 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicons -->
+    <!-- Primary Asset Manifest: External Libraries and Fonts -->
     <link href="{% static 'img/favicon.png' %}" rel="icon">
     <link href="{% static '' %}img/apple-touch-icon.png" rel="apple-touch-icon">
-
-    <!-- Google Fonts -->
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800|Montserrat:300,400,700"
         rel="stylesheet">
-
-    <!-- Bootstrap CSS File -->
     <link href="{% static 'lib/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <!-- Libraries CSS Files -->
     <link href="{% static 'lib/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
     <link href="{% static 'lib/magnific-popup/magnific-popup.css' %}" rel="stylesheet">
-    <link href="{% static 'lib/ionicons/css/ionicons.min.css' %}" rel="stylesheet">
 
-    <!-- Main Stylesheet File -->
+    <!-- Centralized Stylesheet Integration with Version-Based Cache Control -->
     <link href="{% static '' %}css/style.css?v=1.0.0" rel="stylesheet">
 
-    <!-- =======================================================
-      Theme Name: Reveal
-      Theme URL: https://bootstrapmade.com/reveal-bootstrap-corporate-template/
-      Author: BootstrapMade.com
-      License: https://bootstrapmade.com/license/
-    ======================================================= -->
     <style>
         .footer-credits-container {
             padding-top: 30px;
@@ -199,28 +201,27 @@
 </head>
 
 <body id="body">
+    <!-- Global Navigation Architecture -->
     <header id="header">
         <div class="container">
-
             <div id="logo" class="pull-left">
                 <h1><a href="#body" class="scrollto">HangMan<span>game</span></a></h1>
             </div>
-
             <nav id="nav-menu-container">
                 <ul class="nav-menu">
                     <li class="menu-active"><a href="{% url 'starting' %}">Home</a></li>
                     <li><a href="#services">Play</a></li>
                     <li><a href="#invite">Invite your friend</a></li>
                 </ul>
-            </nav><!-- #nav-menu-container -->
+            </nav>
         </div>
-    </header><!-- #header -->
+    </header>
 
     <!--==========================
   Intro Section
 ============================-->
+    <!-- Hero Section: Engagement and Call-to-Action -->
     <section id="intro">
-
         <div class="intro-content">
             <h2>Invite <span>your friends</span><br>to play!</h2>
             <div>
@@ -228,29 +229,25 @@
                 <a href="#invite" class="btn-get-started scrollto">Invite your friend</a>
             </div>
         </div>
-
-
-    </section><!-- #intro -->
+    </section>
 
     <main id="main">
 
+        <!-- Main Gameplay Arena: Modular Component for Word Evaluation -->
         <section id="services">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <h2>How I play?</h2>
-                        <p>If the letter is contained in the word/phrase, the group or individual takes another turn
-                            guessing a
-                            letter. ...
-                            If the letter is not contained in the word/phrase, click the Play Again button, a portion of
-                            the
-                            hangman is added.</p>
+                        <p>The objective is to deduce the hidden secret word by selecting individual letters. Each
+                            unsuccessful attempt results in the incremental construction of the gallows. Six incorrect
+                            guesses lead to a terminal state (Game Over).</p>
                     </div>
                     <div class="col-lg-8 col-sm-12">
-                        <!-- Added id="gameArena" and tabindex="0" to make it focusable for keyboard events -->
+                        <!-- Interactive Game Hub: Initialized with focus for keyboard event capture -->
                         <div class="box wow fadeInLeft" id="gameArena" tabindex="0" onclick="this.focus()"
                             style="padding: 30px; border-radius: 12px; min-height: 450px; outline: none; border: 2px solid transparent; transition: border-color 0.3s;">
-                            <!-- Visual cue for focus state in CSS (handled inline here for simplicity as requested) -->
+                            <!-- Dynamic Focus Aesthetics -->
                             <style>
                                 #gameArena:focus {
                                     border-color: #50d8af !important;
@@ -258,7 +255,7 @@
                                 }
                             </style>
                             <div class="row align-items-center" style="margin-bottom: 40px;">
-                                <!-- Hangman Image Section -->
+                                <!-- Progressive Visual Analytics: Fault Representation -->
                                 <div class="col-lg-5 col-md-6 col-sm-12 text-center">
                                     <div
                                         style="background: #f8f9fa; padding: 20px; border-radius: 10px; display: inline-block;">
@@ -268,7 +265,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Word Blanks Section -->
+                                <!-- Secret State Reconstruction: Word Blanks Section -->
                                 <div
                                     class="col-lg-7 col-md-6 col-sm-12 d-flex flex-column align-items-center justify-content-center">
                                     <p
@@ -287,7 +284,7 @@
                                             {% endif %}
                                             {% endfor %}
                                         </span>
-                                        <!-- Hint Section -->
+                                        <!-- Contextual Assistance Node: Hint Trigger -->
                                         <div style="margin-top: 15px; text-align: center;">
                                             <button onclick="toggleHint()" class="btn btn-sm"
                                                 style="background-color: #50d8af; color: white; border: none; font-size: 13px; border-radius: 20px; padding: 6px 18px; font-weight: 600; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
@@ -302,13 +299,13 @@
                                 </div>
                             </div>
 
-                            <!-- Keyboard Section -->
+
+                            <!-- Input Controller: Virtual Alphabetical Keyboard -->
                             <div class="row">
                                 <div class="col-12 text-center">
                                     <div
                                         style="background: #f1f3f5; padding: 20px; border-radius: 15px; display: inline-block;">
-
-                                        <!-- Row 1 -->
+                                        <!-- Keyboard Matrix: Structured for optimal UX engagement -->
                                         <div style="margin-bottom: 8px;">
                                             <a id="a" onclick="wordUpd('a')"
                                                 class="btn btn-game-theme alphabet-btn">A</a>
@@ -331,8 +328,6 @@
                                             <a id="j" onclick="wordUpd('j')"
                                                 class="btn btn-game-theme alphabet-btn">J</a>
                                         </div>
-
-                                        <!-- Row 2 -->
                                         <div style="margin-bottom: 8px;">
                                             <a id="k" onclick="wordUpd('k')"
                                                 class="btn btn-game-theme alphabet-btn">K</a>
@@ -355,8 +350,6 @@
                                             <a id="t" onclick="wordUpd('t')"
                                                 class="btn btn-game-theme alphabet-btn">T</a>
                                         </div>
-
-                                        <!-- Row 3 -->
                                         <div>
                                             <a id="u" onclick="wordUpd('u')"
                                                 class="btn btn-game-theme alphabet-btn">U</a>
@@ -373,7 +366,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- Auxiliary Navigation: Post-Game Reset -->
                                 <div class="col-12 text-center" style="margin-top: 20px;">
                                     <a hidden id="playAgain" class="btn btn-success animated pulse infinite"
                                         style="padding: 10px 30px; font-weight: bold; border-radius: 50px;"
@@ -383,25 +376,28 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
+        </section>
+
+
+        </div>
+
+        </div>
 
         </section><!-- #services -->
+        <!-- Peer-to-Peer Engagement: UUID-Based Word Generation and Sharing -->
         <section id="invite">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4 col-sm-12">
                         <h2>How can my friend play?</h2>
-                        <p>Just pick a random word from our database, copy the URL to share and voilà!!</p>
-                        <p>Don't forget to ask your friend for a screenshot!!</p>
+                        <p>Generate a unique cryptographic link mapped to a specific word in our vault. Sharing this URL
+                            allows for synchronous gameplay scenarios with peers.</p>
                     </div>
                     <div class="col-lg-8 col-sm-12">
                         <div class="box wow fadeInLeft">
-
-                            <!-- Header / Button -->
+                            <!-- Social Action Node: Word Generator Trigger -->
                             <div style="margin-bottom: 30px;">
                                 <a id="generateNew" onclick="generateNewWord()" class="btn btn-game-theme"
                                     style="padding: 12px 30px; font-size: 16px; border-radius: 50px; cursor: pointer;">
@@ -409,7 +405,7 @@
                                 </a>
                             </div>
 
-                            <!-- Word Display -->
+                            <!-- Secret Word Visualization (Obfuscated for sharer) -->
                             <div
                                 style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 30px; display: inline-block; min-width: 250px;">
                                 <h2 id="wordRandom"
@@ -420,7 +416,7 @@
                                     Word</small>
                             </div>
 
-                            <!-- Share Link -->
+                            <!-- Cryptographic Access Link: URL Distribution Section -->
                             <div style="max-width: 500px; margin: 0 auto; text-align: left;">
                                 <label for="urlnewGame"
                                     style="display: block; font-weight: 700; color: #444; margin-bottom: 8px;">Share
@@ -440,21 +436,17 @@
                                     style="color: #28a745; display: none; margin-top: 5px; font-weight: bold;"><i
                                         class="fa fa-check"></i> Copied to clipboard!</small>
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-
-        </section><!-- #services -->
+        </section>
     </main>
 
     <!--==========================
   Footer
 ============================-->
+    <!-- Scholarly Acknowledgement and Project Archival Information -->
     <footer id="footer">
         <div class="container">
             <div class="footer-credits-container">
@@ -465,9 +457,11 @@
                 Released: September 2, 2022 • <a target="_blank"
                     href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON" class="footer-repo-link">GitHub
                     Repo</a>
+                <br>
+                <small style="opacity: 0.6;">Licensed under the MIT Open Source Standard</small>
             </div>
         </div>
-    </footer><!-- #footer -->
+    </footer>
 
     <!-- Easter Egg Overlay -->
     <div id="easter-egg-overlay">
@@ -505,6 +499,10 @@
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>
+        /**
+         * Asynchronous invitation handler for word randomization.
+         * Communicates with the backend REST endpoint to retrieve a new secret word and its UUID mapping.
+         */
         function generateNewWord() {
             $.ajax({
                 url: '{% url "generate-word" %}',
@@ -515,42 +513,39 @@
                         $(this).html(data.word).fadeIn(200);
                     });
                     const url = "http://" + data.domain + "/" + data.uuid;
-                    // Update input value instead of anchor href
                     $("#urlnewGame").val(url);
-                    // Reset copy message
                     $("#copySuccess").hide();
-
-                    // Reset hint (only if it exists and we're in the right mode, but here we just prevent clash)
-                    // $("#gameplayHintContent").text(data.hint); // Don't update gameplay hint when generating for friend
                     $("#hintText").hide();
                 }
             });
         }
 
+        /**
+         * System clipboard integration for URI distribution.
+         */
         function copyLink() {
             var copyText = document.getElementById("urlnewGame");
             copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-
-            // Show success message
             $("#copySuccess").fadeIn().delay(2000).fadeOut();
         }
+
+        /**
+         * Real-time game logic synchronization via AJAX.
+         * This function acts as the client-side bridge for the centralized game state machine.
+         * Transmits letter guesses and processes terminal outcomes (Victory/Loss).
+         */
         function wordUpd(letter) {
             const currentWordId = parseInt("{{ wordId }}");
-
             $.ajax({
                 url: '{% url "updated-word-game" %}',
                 data: { 'wordId': currentWordId, 'letter': letter },
                 type: 'get',
                 success: function (data) {
-                    console.log("Response:", data);
-
-                    // Handle LOSS
                     if (data.is_lose) {
                         $('#imageMan').attr('src', 'static/hangman_pictures/7.jpg');
                         $('#' + letter).removeClass('btn-game-theme').addClass('btn-danger disabled');
-
                         $('#customResultTitle').text('GAME OVER').css('color', '#ff4d4d');
                         $('#customResultMessage').text('Oh no! You couldn\'t save him this time.');
                         $('#customResultWordBox').show();
@@ -558,12 +553,8 @@
                         $('#customResultModal').css('display', 'flex').hide().fadeIn(400);
                         return;
                     }
-
-                    // Handle WIN
                     if (data.is_win) {
                         $('#' + letter).removeClass('btn-game-theme').addClass('btn-success disabled');
-
-                        // Fill in remaining letters
                         if (data.word_array) {
                             for (let i = 0; i < data.word_array.length; i++) {
                                 if (data.word_array[i] !== "") {
@@ -571,15 +562,12 @@
                                 }
                             }
                         }
-
                         $('#customResultTitle').text('VICTORY!').css('color', '#50d8af');
                         $('#customResultMessage').text('Congratulations! You saved the man!');
                         $('#customResultWordBox').hide();
                         $('#customResultModal').css('display', 'flex').hide().fadeIn(400);
                         return;
                     }
-
-                    // Handle CORRECT GUESS (not won yet)
                     if (data.is_correct) {
                         $('#' + letter).removeClass('btn-game-theme').addClass('btn-success disabled');
                         if (data.word_array) {
@@ -591,90 +579,62 @@
                         }
                         return;
                     }
-
-                    // Handle WRONG GUESS (not lost yet)
                     $('#imageMan').attr('src', 'static/hangman_pictures/' + (data.fault_count + 1) + '.jpg');
                     $('#' + letter).removeClass('btn-game-theme').addClass('btn-danger disabled');
-                },
-                error: function (xhr, status, error) {
-                    console.error("AJAX Error:", error);
                 }
             });
         }
 
         /* ----------------------------------------------------
-           SECURITY & EASTER EGGS
+           INTEGRITY ENFORCEMENT & HIDDEN MODULES (EASTER EGGS)
            ---------------------------------------------------- */
 
-        // 1. Anti-Right Click
+        // 1. Contextual Lockdown: Prevents unauthorized inspection.
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // 2. Disable DevTools Shortcuts
+        // 2. Hardware Interrupt Handling: Disables Developer Orchestration shortcuts.
         document.onkeydown = function (e) {
-            if (e.keyCode == 123) { // F12
-                return false;
-            }
-            if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) {
-                return false;
-            }
-            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                return false;
-            }
+            if (e.keyCode == 123) return false;
+            if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+            if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         };
 
-        // 3. DevTools Console Easter Egg
-        console.log("%c STOP! %c Unauthorized access is prohibited.",
-            "color: red; font-size: 40px; font-weight: bold; text-shadow: 2px 2px black;",
-            "color: #0c2e8a; font-size: 20px;");
-        console.log("%c HANGMAN PROJECT %c Created by Amey Thakur & Mega Satish",
-            "background: #0c2e8a; color: white; padding: 5px 10px; font-weight: bold;",
-            "color: #50d8af; font-weight: bold;");
-        console.log("If you see this, you found the first secret!");
+        // 3. Administrative Console Diagnostics (Authorship Awareness).
+        console.log("%c STOP! %c Unauthorized access is prohibited.", "color: red; font-size: 40px; font-weight: bold; text-shadow: 2px 2px black;", "color: #0c2e8a; font-size: 20px;");
+        console.log("%c HANGMAN PROJECT %c Created by Amey Thakur & Mega Satish", "background: #0c2e8a; color: white; padding: 5px 10px; font-weight: bold;", "color: #50d8af; font-weight: bold;");
 
-        // 4. Keyboard Sequence Easter Egg ("AMEYMEGA")
+        // 4. Sequential Input Heuristic: Keyboard-triggered secret overlay (Trigger: "AMEYMEGA").
         let secretCode = "";
         const targetCode = "ameymega";
         document.addEventListener('keydown', (e) => {
             secretCode += e.key.toLowerCase();
-            if (secretCode.length > targetCode.length) {
-                secretCode = secretCode.substring(secretCode.length - targetCode.length);
-            }
+            if (secretCode.length > targetCode.length) secretCode = secretCode.substring(secretCode.length - targetCode.length);
             if (secretCode === targetCode) {
                 document.getElementById('easter-egg-overlay').style.display = 'flex';
-                secretCode = ""; // reset
+                secretCode = "";
             }
         });
 
-        // 5. Game Keyboard Controls
+        // 5. Native Hardware Integration: Bridging physical keyboard events to virtual game controls.
         const gameArena = document.getElementById('gameArena');
         if (gameArena) {
             gameArena.addEventListener('keydown', (e) => {
-                // Ignore if modifier keys are pressed (e.g., Ctrl+C, Alt+Tab)
                 if (e.ctrlKey || e.altKey || e.metaKey) return;
-
                 const key = e.key.toLowerCase();
-
-                // Check if key is a letter a-z
                 if (/^[a-z]$/.test(key)) {
-                    // Prevent default scrolling if needed, though usually fine for letters
-                    // e.preventDefault(); 
-
                     const btn = document.getElementById(key);
-
-                    // If button exists and is not disabled (not already guessed)
                     if (btn && !btn.classList.contains('disabled')) {
-                        // Add a visual "active" effect briefly
                         btn.classList.add('active');
                         setTimeout(() => btn.classList.remove('active'), 100);
-
-                        // Trigger the click logic
                         btn.click();
                     }
                 }
             });
         }
 
-        // 6. Toggle Hint
+        /**
+         * UI Visibility Controller: Toggles Hint presentation.
+         */
         function toggleHint() {
             var hintText = document.getElementById("hintText");
             if (hintText.style.display === "none") {

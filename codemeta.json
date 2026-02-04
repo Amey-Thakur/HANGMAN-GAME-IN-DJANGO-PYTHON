@@ -2,6 +2,7 @@
     "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
     "@type": "SoftwareSourceCode",
     "name": "HANGMAN-GAME-IN-DJANGO-PYTHON",
+    "version": "1.0.0",
     "description": "A classic Hangman word game developed using Django and Python. Features include randomized words, category-based hints, and a custom result interface.",
     "identifier": "HANGMAN-GAME-IN-DJANGO-PYTHON",
     "license": "https://spdx.org/licenses/MIT.html",
