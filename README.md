@@ -256,9 +256,9 @@ Copyright © 2022 Amey Thakur & Mega Satish
 
 **Created & Maintained by**: [Amey Thakur](https://github.com/Amey-Thakur) & [Mega Satish](https://github.com/msatmod)
 
-This project features **Hangman Game**, an interactive lexical challenge system. It represents a personal exploration into **Django**-based backend orchestration and high-performance interactive design.
+This project features **Hangman Game**, a high-fidelity interactive lexical challenge system. It represents a personal exploration into **Django**-based backend orchestration and high-performance interactive design via **asynchronous state synchronization**.
 
-**Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur)
+**Connect:** [GitHub](https://github.com/Amey-Thakur) &nbsp;·&nbsp; [LinkedIn](https://www.linkedin.com/in/amey-thakur) &nbsp;·&nbsp; [ORCID](https://orcid.org/0000-0001-5644-1575)
 
 ### Acknowledgments
 
