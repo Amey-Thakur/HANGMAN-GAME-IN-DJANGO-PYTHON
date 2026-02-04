@@ -10,7 +10,7 @@ As a finalized project, only the version listed below is authoritative:
 
 | Version | Supported |
 | ------- | --------- |
-| 8.0.0   | Yes       |
+| 1.0.0   | Yes       |
 
 ## Vulnerability Reporting Protocol
 
