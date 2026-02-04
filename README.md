@@ -276,13 +276,13 @@ Special thanks to the **mentors and peers** whose encouragement, discussions, an
 
   <br>
 
-  ✅ **[Computer Engineering Repository](https://github.com/Amey-Thakur/COMPUTER-ENGINEERING)**
+  🎮 **[Hangman Game in Django & Python](https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON)**
 
   ---
 
-  ### 🎓 [University of Mumbai](https://github.com/Amey-Thakur/COMPUTER-ENGINEERING)
+  ### 🎓 [Computer Engineering Repository](https://github.com/Amey-Thakur/COMPUTER-ENGINEERING)
 
-  **Computer Engineering (B.E.)**
+  **Computer Engineering (B.E.) - University of Mumbai**
 
   *Semester-wise curriculum, laboratories, projects, and academic notes.*
 
