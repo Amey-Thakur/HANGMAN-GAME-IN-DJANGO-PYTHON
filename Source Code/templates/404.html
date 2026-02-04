@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>404 | HANGMAN | AMEY & MEGA</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700,800|Montserrat:400,700" rel="stylesheet">
+
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+            /* Use the static image as background, fallback to white */
+            background: url("{% static 'img/404.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            /* Keeping dark text as requested previously, user can adjust */
+            overflow: hidden;
+        }
+
+        .overlay-mask {
+            height: 100%;
+            width: 100%;
+            /* No overlay background as requested */
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            /* Add a semi-transparent white box behind text for readability if image is busy */
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            /* Adds a nice glassmorphism effect for better readability */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 120px;
+            margin: 0;
+            font-weight: 800;
+            text-shadow: 2px 2px 0px rgba(80, 216, 175, 0.5);
+            color: #50d8af;
+            letter-spacing: 10px;
+        }
+
+        p {
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+            max-width: 600px;
+            font-weight: 600;
+        }
+
+        .btn-home {
+            background: #0c2e8a;
+            color: #fff;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid #0c2e8a;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .btn-home:hover {
+            background: #50d8af;
+            color: #0c2e8a;
+            transform: scale(1.1);
+            border-color: #50d8af;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 16px;
+            color: #222;
+            font-weight: 600;
+        }
+
+        .footer a {
+            color: #0c2e8a;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #50d8af;
+        }
+
+        /* Glitch Effect - simplified for visibility */
+        .glitch {
+            position: relative;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animated {
+            animation: fadeIn 1s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- bg-container removed, using body background -->
+    <div class="overlay-mask">
+        <div class="container animated">
+            <h1 class="glitch">404</h1>
+            <p style="animation-delay: 0.2s;">Oops! It looks like this path lead to a dead end.</p>
+            <p style="animation-delay: 0.4s; font-size: 18px; font-style: italic;">The words you seek are hidden
+                elsewhere.</p>
+
+            <a href="/" class="btn-home" style="animation-delay: 0.6s;">Save the Man (Go Home)</a>
+
+            <div class="footer" style="animation-delay: 0.8s;">
+                Created with 💚 by <a href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON">Amey
+                    Thakur</a> & <a href="https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON">Mega Satish</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

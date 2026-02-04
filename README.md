@@ -2,9 +2,7 @@
 
 >**Hangman Game Django Web App**
 
-## **Steps to run django web application**
-6: 
-7: >**Note**: This project has been upgraded to **Django 6.0.2** and **Python 3.12+**.
+7: >**Note**: This project has been upgraded to **Django 6.0.2** and **Python 3.14+**.
 
 1. Create a virtual environment. 
 
