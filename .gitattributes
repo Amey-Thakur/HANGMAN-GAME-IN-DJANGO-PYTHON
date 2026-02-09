@@ -28,9 +28,9 @@
 # Academic/Scholarly classification
 *.md linguist-documentation
 
-# LINGUIST OPTIMIZATION - FORCE PYTHON/DJANGO DOMINANCE
-*.html linguist-language=Django
-*.html linguist-detectable=true
+# LINGUIST OPTIMIZATION - FORCE 100% PYTHON DOMINANCE
+*.html linguist-vendored
+*.html linguist-detectable=false
 *.py linguist-language=Python
 *.py linguist-detectable=true
 
