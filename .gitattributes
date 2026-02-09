@@ -29,7 +29,7 @@
 *.md linguist-documentation
 
 # LINGUIST OPTIMIZATION - FORCE PYTHON/DJANGO DOMINANCE
-*.html linguist-language=HTML+Django
+*.html linguist-language=Django
 *.html linguist-detectable=true
 *.py linguist-language=Python
 *.py linguist-detectable=true
