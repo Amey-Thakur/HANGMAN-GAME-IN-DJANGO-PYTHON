@@ -27,3 +27,27 @@
 
 # Academic/Scholarly classification
 *.md linguist-documentation
+
+# LINGUIST OPTIMIZATION - FORCE PYTHON/DJANGO DOMINANCE
+*.html linguist-language=HTML+Django
+*.py linguist-detectable=true
+
+# Force Python dominance by hiding assets, screenshots, and vendored code
+"Source Code/static/**" linguist-vendored
+"Source Code/static/**" linguist-detectable=false
+"Source Code/staticfiles/**" linguist-vendored
+"Source Code/staticfiles/**" linguist-detectable=false
+"Mega/**" linguist-vendored
+"Mega/**" linguist-detectable=false
+"docs/**" linguist-documentation
+"docs/**" linguist-detectable=false
+"screenshots/**" linguist-vendored
+"screenshots/**" linguist-detectable=false
+"venv/**" linguist-vendored
+"venv/**" linguist-detectable=false
+
+# Global exclusions for styling assets to keep stats focused on Python logic
+*.css linguist-vendored
+*.css linguist-detectable=false
+*.js linguist-vendored
+*.js linguist-detectable=false
