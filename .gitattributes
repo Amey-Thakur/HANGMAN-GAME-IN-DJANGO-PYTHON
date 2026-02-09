@@ -28,31 +28,35 @@
 # Academic/Scholarly classification
 *.md linguist-documentation
 
-# LINGUIST OPTIMIZATION - FORCE 100% PYTHON DOMINANCE
+# LINGUIST OPTIMIZATION - NUCLEAR FORCE 100% PYTHON
+# Mark templates as generated to exclude them from the language bar entirely
+*.html linguist-generated
+*.html -linguist-detectable
 *.html linguist-vendored
-*.html linguist-detectable=false
+
+# Ensure Python is the ONLY detectable logic
 *.py linguist-language=Python
-*.py linguist-detectable=true
+*.py linguist-detectable
 
-# Force Python dominance by HIDING all major asset types from the language bar
-"**/*.css" linguist-vendored
-"**/*.css" linguist-detectable=false
-"**/*.js" linguist-vendored
-"**/*.js" linguist-detectable=false
-"**/*.json" linguist-vendored
-"**/*.json" linguist-detectable=false
-
-# Vendor/Hide specific high-volume directories
+# Re-verify Hiding for assets
+"Source Code/static/**" linguist-generated
+"Source Code/static/**" -linguist-detectable
 "Source Code/static/**" linguist-vendored
-"Source Code/static/**" linguist-detectable=false
+
+"Source Code/staticfiles/**" linguist-generated
+"Source Code/staticfiles/**" -linguist-detectable
 "Source Code/staticfiles/**" linguist-vendored
-"Source Code/staticfiles/**" linguist-detectable=false
-"Source Code/templates/**" linguist-language=HTML+Django
+
+"Mega/**" linguist-generated
+"Mega/**" -linguist-detectable
 "Mega/**" linguist-vendored
-"Mega/**" linguist-detectable=false
-"docs/**" linguist-documentation
-"docs/**" linguist-detectable=false
-"screenshots/**" linguist-vendored
-"screenshots/**" linguist-detectable=false
+
+"venv/**" linguist-generated
+"venv/**" -linguist-detectable
 "venv/**" linguist-vendored
-"venv/**" linguist-detectable=false
+
+# documentation
+docs/** linguist-documentation
+README.md linguist-documentation
+SECURITY.md linguist-documentation
+LICENSE linguist-documentation
