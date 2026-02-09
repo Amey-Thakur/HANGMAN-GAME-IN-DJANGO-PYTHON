@@ -30,13 +30,24 @@
 
 # LINGUIST OPTIMIZATION - FORCE PYTHON/DJANGO DOMINANCE
 *.html linguist-language=HTML+Django
+*.html linguist-detectable=true
+*.py linguist-language=Python
 *.py linguist-detectable=true
 
-# Force Python dominance by hiding assets, screenshots, and vendored code
+# Force Python dominance by HIDING all major asset types from the language bar
+"**/*.css" linguist-vendored
+"**/*.css" linguist-detectable=false
+"**/*.js" linguist-vendored
+"**/*.js" linguist-detectable=false
+"**/*.json" linguist-vendored
+"**/*.json" linguist-detectable=false
+
+# Vendor/Hide specific high-volume directories
 "Source Code/static/**" linguist-vendored
 "Source Code/static/**" linguist-detectable=false
 "Source Code/staticfiles/**" linguist-vendored
 "Source Code/staticfiles/**" linguist-detectable=false
+"Source Code/templates/**" linguist-language=HTML+Django
 "Mega/**" linguist-vendored
 "Mega/**" linguist-detectable=false
 "docs/**" linguist-documentation
@@ -45,9 +56,3 @@
 "screenshots/**" linguist-detectable=false
 "venv/**" linguist-vendored
 "venv/**" linguist-detectable=false
-
-# Global exclusions for styling assets to keep stats focused on Python logic
-*.css linguist-vendored
-*.css linguist-detectable=false
-*.js linguist-vendored
-*.js linguist-detectable=false
