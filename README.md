@@ -219,7 +219,13 @@ python manage.py migrate
 python manage.py runserver
 ```
 
+> [!TIP]
+> ### Reactive Backend Orchestration | AJAX State Sync Core
+> 
+> Experience the deterministic gameplay loop directly in the browser by leveraging the project's **AJAX-driven state synchronization**. This architecture utilizes **Django's session-based storage** to maintain real-time lexical updates and fault tracking, ensuring a high-fidelity interactive experience without full-page reloads.
+
 ---
+
 
 <!-- USAGE GUIDELINES -->
 <a name="usage-guidelines"></a>
