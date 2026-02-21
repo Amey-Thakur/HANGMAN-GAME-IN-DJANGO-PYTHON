@@ -220,9 +220,10 @@ python manage.py runserver
 ```
 
 > [!TIP]
-> ### Reactive Backend Orchestration | AJAX State Sync Core
+> ### Stateful Session Orchestration | Django MVT Integrity
 > 
-> Experience the deterministic gameplay loop directly in the browser by leveraging the project's **AJAX-driven state synchronization**. This architecture utilizes **Django's session-based storage** to maintain real-time lexical updates and fault tracking, ensuring a high-fidelity interactive experience without full-page reloads.
+> To ensure operational consistency, the system utilizes a **server-side state validator** synchronized via **Django Sessions**. By decoupling the lexical logic from the client-side state, the engine prevents unauthorized word access while the **AJAX polling layer** maintains high-fidelity UI updates. This demonstrates a robust architectural template for building secure, stateful interactive applications without compromising **MVT design principles**.
+
 
 ---
 
