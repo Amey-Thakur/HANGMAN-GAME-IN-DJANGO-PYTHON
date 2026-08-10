@@ -5,7 +5,7 @@ body{background:#fff;font-family:Archivo,sans-serif;position:relative;overflow:h
 .spine{position:absolute;left:0;top:0;width:12px;height:100%;background:#2B2C88;z-index:3}
 .hero{position:absolute;left:0;right:0;top:0;height:132px;background:#C9D8D3;overflow:hidden}
 .hero svg{position:absolute;right:40px;top:14px}
-.wrap{position:absolute;inset:0;padding:164px 64px 44px 76px;display:flex;gap:50px}
+.wrap{position:absolute;inset:0;padding:164px 64px 104px 76px;display:flex;gap:50px}
 .left{width:520px}
 .kicker{font-size:17px;font-weight:700;letter-spacing:.16em;color:#2B2C88;text-transform:uppercase}
 .h1{margin-top:12px;font-size:50px;font-weight:700;line-height:1.1;color:#12141A;letter-spacing:-.024em;padding-bottom:.06em}
@@ -13,8 +13,10 @@ body{background:#fff;font-family:Archivo,sans-serif;position:relative;overflow:h
 ul{margin-top:20px;list-style:none;font-size:19.5px;color:#1D2430;line-height:1.98}
 li{padding-left:19px;position:relative;font-weight:500}
 li:before{content:'';position:absolute;left:0;top:.74em;width:8px;height:8px;border-radius:50%;background:#2B2C88}
-.panel{flex:1;background:#fff;border:1px solid #E3E6EA;border-radius:10px;padding:22px 26px 26px;box-shadow:0 8px 26px rgba(20,25,40,.07);align-self:flex-start}
-.word{text-align:right;font-family:Consolas,monospace;font-size:27px;letter-spacing:.34em;color:#1D2430;margin-bottom:6px}
+.panel{flex:1;background:#fff;border:1px solid #E3E6EA;border-radius:10px;padding:26px 28px 28px;box-shadow:0 8px 26px rgba(20,25,40,.07);display:flex;flex-direction:column}
+.ptop{display:flex;align-items:center;gap:24px;margin-bottom:20px}
+.gal{flex:none}
+.word{flex:1;text-align:center;font-family:Consolas,monospace;font-size:30px;letter-spacing:.34em;color:#1D2430}
 .kr{display:flex;gap:8px;margin-top:8px}
 .kr i{width:41px;height:41px;border-radius:5px;color:#fff;font-size:18px;font-weight:600;font-style:normal;display:flex;align-items:center;justify-content:center}
 .kr i.b{background:#1668E3}.kr i.g{background:#4CD07D}.kr i.r{background:#F2726F}
@@ -35,7 +37,7 @@ li:before{content:'';position:absolute;left:0;top:.74em;width:8px;height:8px;bor
     <ul><li>Django MVT with server held game state</li><li>Letters guessed over AJAX, no page reload</li><li>Sessions keep a game across requests</li><li>Invite a friend to the same round</li></ul>
   </div>
   <div class="panel">
-    <div class="word">_ t r a n g e</div>
+    <div class="ptop"><svg class="gal" width="132" height="168" viewBox="0 0 132 168"><g stroke="#1D2430" stroke-width="3" fill="none" stroke-linecap="round"><path d="M14 158 H92"/><path d="M50 158 V12"/><path d="M50 12 H104"/><path d="M104 12 V32"/><circle cx="104" cy="46" r="14"/></g></svg><div class="word">_ t r a n g e</div></div>
     <div class="kr"><i class="g">A</i><i class="b">B</i><i class="r">C</i><i class="b">D</i><i class="g">E</i><i class="b">F</i><i class="g">G</i><i class="b">H</i><i class="b">I</i><i class="b">J</i></div><div class="kr"><i class="b">K</i><i class="b">L</i><i class="b">M</i><i class="g">N</i><i class="b">O</i><i class="b">P</i><i class="b">Q</i><i class="g">R</i><i class="b">S</i><i class="g">T</i></div><div class="kr"><i class="b">U</i><i class="b">V</i><i class="b">W</i><i class="b">X</i><i class="b">Y</i><i class="b">Z</i></div>
   </div>
 </div>
