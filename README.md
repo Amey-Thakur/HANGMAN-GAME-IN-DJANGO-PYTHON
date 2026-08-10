@@ -11,6 +11,10 @@
 
   **[Source Code](Source%20Code/)** &nbsp;·&nbsp; **[Technical Specification](docs/SPECIFICATION.md)** &nbsp;·&nbsp; **[Snapshots](#results)**
 
+  <br>
+
+  <img src=".github/social-preview.png" alt="Hangman Game in Django" width="90%">
+
 </div>
 
 ---
