@@ -1,0 +1,32 @@
+# Hangman Game in Django & Python
+
+> A Hangman game web application developed using Django.
+
+Author: Amey Thakur, ORCID 0000-0001-5644-1575
+Co-author: Mega Satish, ORCID 0000-0002-1844-9557
+Institution: Terna Engineering College, University of Mumbai
+Programme: B.E. Computer Engineering
+Licence: CC BY 4.0, attribution required
+Repository created: 2 September 2022
+
+## What is in this repository
+
+- Mega, 6 files
+- Source Code, 255 files
+- docs, 1 file
+- screenshots, 5 files
+
+## Subject terms
+
+ajax, django, django-application, django-project, hangman, hangman-game,
+hangman-in-python, jquery, mvt-architecture, python, python-django,
+python-web-application, session-management, stateful-applications,
+word-game
+
+## Where this sits
+
+- This repository: https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON
+- Degree index, every subject and project: https://github.com/Amey-Thakur/COMPUTER-ENGINEERING
+- Project page: https://amey-thakur.github.io/PYTHON-CRASH-COURSE/
+- Author: https://github.com/Amey-Thakur
+- Research notes and reflections: https://amey-thakur.github.io/

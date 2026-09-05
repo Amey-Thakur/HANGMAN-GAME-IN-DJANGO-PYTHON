@@ -11,3 +11,7 @@ title: "HANGMAN-GAME-IN-DJANGO-PYTHON"
 version: 1.0.0
 date-released: 2022-09-02
 url: "https://github.com/Amey-Thakur/HANGMAN-GAME-IN-DJANGO-PYTHON"
+identifiers:
+  - type: other
+    value: "2022-09-02"
+    description: "Date this repository was created on GitHub."
